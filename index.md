@@ -1,7 +1,5 @@
 # Cours 2020-2021
 
-<!-- gdfsg 
-
 ## Département STID, IUT Paris Descartes
 
 - DUT STID 1ère année
@@ -12,13 +10,10 @@
 - DU Analyste Big Data
     - [Introduction à **MongoDB**](du-abd)
 - DU Dataviz
-    - [Séminaire de rentrée](https://docs.google.com/presentation/d/e/2PACX-1vROIoPeoSIhSLBM0xYxoD_Fy5OFndmpJFAjEJ1ZcZL-QyqGpMkTnBsEi7C1871YJpGDITSElbBsTUjV/pub?start=false&loop=false&delayms=3000)
-    - [Introduction à Tableau](du-dataviz--tableau)
-    - [Introduction à d3.js](du-dataviz--d3js)    
+    - [Introduction à Tableau](du-dataviz/tableau)
+    - [Introduction à d3.js](du-dataviz/d3js)    
 
 ## Département Informatique, IUT Paris Descartes
 
 - LP IoT
     - [Analyse Statistique des Données](lp-iot--python-ds)
-
--->
