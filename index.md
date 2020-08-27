@@ -4,7 +4,7 @@
 
 - DUT STID 1ère année
     - [Bases de données](stid-1a--bd)
-- DU STID 2ème année
+- DUT STID 2ème année
     - [Travaux de fin d'études](stid-2afi--tfe)
 - DUT STID 2ème année (en alternance)
     - [SID](stid-2afa--sid/)
