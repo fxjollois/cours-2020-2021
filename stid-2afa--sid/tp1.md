@@ -1,6 +1,6 @@
 # Rappels de SQL
 
-Nous utiliserons SAS pour réaliser les requêtes SQL sur le data-mart **CA**. Celui-ci représente le chiffre d'affaires (CA) d'une entreprise en fonction de 3 dimenions (provenance, mois et département - ces deux dernières comprenant une hiérarchie). Voici les 4 tables le contenant (avec les liens pour les téléchargér).
+Nous utiliserons SAS pour réaliser les requêtes SQL sur le data-mart **CA**. Celui-ci représente un data warehouse (enfin, plutôt data mart) centré sur le chiffre d'affaires (CA) d'une entreprise en fonction de 3 dimensions (provenance, mois et département - ces deux dernières comprenant une hiérarchie). Voici les 4 tables le contenant (avec les liens pour les télécharger).
 
 - [CA](https://fxjollois.github.io/donnees/ca/csv/ca.csv)
 - [Mois](https://fxjollois.github.io/donnees/ca/csv/mois.csv)
