@@ -6,8 +6,10 @@
 
 - [Modélisation des SID](https://docs.google.com/presentation/d/e/2PACX-1vQ17imaWyGW2ala_e-F6maebia-i2LFRIiRnaGBp5zFUKSiU2qCL9UHhbd1yAcfVc0Dx4otDRWjUrm2/pub?start=false&loop=false&delayms=3000)
 
+<!--
 - [Modélisation multidimensionnelle](tp2)
-    
+-->
+
 - [TD Modélisation multidimensionnelle](td1)
 
 - [TP Intégration de données sous R](tp3)
