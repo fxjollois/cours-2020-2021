@@ -6,8 +6,7 @@ Nous utiliserons la base de données [Sakila](http://fxjollois.github.io/donnees
 
 - La base de données est restreinte (uniquement 1000 films par exemple) ;
 - Ce qui a pour effet que, pour certaines questions, le résultat sera limité (*A vous d'être sûr de faire des requêtes correctes*) ;
-- Un film peut bien évidemment être en plusieurs exemplaires ;
-- 
+- Un film peut bien évidemment être en plusieurs exemplaires.
 
 ![MRD sakila](https://fxjollois.github.io/cours-sql/bases/sakila.png)
 
