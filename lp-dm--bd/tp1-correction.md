@@ -228,13 +228,13 @@ SELECT nb_copies AS "Nb copies", count(*) AS "Nb films"
 ##### Les plus rentables
 ```
 SELECT film_id, title, replacement_cost AS "Coût", ROUND(benefice, 2) AS "Bénéfice", 
-		ROUND(benefice - replacement_cost, 2) AS rentabilite
+		ROUND(benefice - replacement_cost, 2) AS "Rentabilité"
 	FROM film NATURAL JOIN (SELECT film_id, .1 * sum(amount) AS benefice
 								FROM payment, rental, inventory
     							WHERE payment.rental_id = rental.rental_id
     							AND rental.inventory_id = inventory.inventory_id
     							GROUP BY film_id)
-    ORDER by rentabilite DESC
+    ORDER by "Rentabilité" DESC
     LIMIT 10;
 ```
 
@@ -251,7 +251,7 @@ SELECT payment_id
 
 #### Existe-t’il (si oui le(s)quel(s)) des clients qui ont commandé dans plusieurs magasins ?
 ```
-SELECT customer.customer_id, first_name, last_name, COUNT(DISTINCT inventory.store_id)
+SELECT customer.customer_id, first_name, last_name, COUNT(DISTINCT inventory.store_id) AS "Nb magasins"
 	FROM customer, rental, inventory
     WHERE customer.customer_id = rental.customer_id
     AND rental.inventory_id = inventory.inventory_id
@@ -259,7 +259,7 @@ SELECT customer.customer_id, first_name, last_name, COUNT(DISTINCT inventory.sto
 ```
 
 #### Est-il possible qu’un film puisse être loué à des prix différents ? Si oui, explorez un la table pour essayer de comprendre pourquoi.
-Ici, on regarde le prix min et le prix max d'une location, en comparaison du prix "normal" (`renatal_rate`).
+Ici, on regarde le prix min et le prix max d'une location, en comparaison du prix "normal" (`rental_rate`).
 ```
 SELECT film.film_id, title, rental_rate, prix_min, prix_max
 	from film NATURAL JOIN (SELECT film_id, MIN(amount) as prix_min, MAX(amount) as prix_max
