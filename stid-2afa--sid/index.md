@@ -12,11 +12,8 @@
 - [Modélisation des SID](https://docs.google.com/presentation/d/e/2PACX-1vQ17imaWyGW2ala_e-F6maebia-i2LFRIiRnaGBp5zFUKSiU2qCL9UHhbd1yAcfVc0Dx4otDRWjUrm2/pub?start=false&loop=false&delayms=3000)
 - [TD Modélisation multidimensionnelle](td1)
 
-<!--
-- [Modélisation multidimensionnelle](tp2)
--->
-
-- [Intégration des données]()
+- [Intégration des données](https://docs.google.com/presentation/d/e/2PACX-1vSvjB8XvSb5UaHnQKjZO5fHsAYCiaPC6BTgRoSjSvR6MzFiXMNBRsiXSJAaO2HeVZOyPTa65eoHyMrg/pub?start=false&loop=false&delayms=3000)
+- [TD Intégration de données](td2)
 - [TP Intégration de données sous R](tp3)
 
 - [Reporting & Tableaux de bords]()
