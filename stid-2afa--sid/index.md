@@ -13,7 +13,6 @@
 - [TD Modélisation multidimensionnelle](td1)
 
 - [Intégration des données](https://docs.google.com/presentation/d/e/2PACX-1vSvjB8XvSb5UaHnQKjZO5fHsAYCiaPC6BTgRoSjSvR6MzFiXMNBRsiXSJAaO2HeVZOyPTa65eoHyMrg/pub?start=false&loop=false&delayms=3000)
-- [TD Intégration de données](td2)
 - [TP Intégration de données sous R](tp3)
 
 - [Reporting & Tableaux de bords]()
