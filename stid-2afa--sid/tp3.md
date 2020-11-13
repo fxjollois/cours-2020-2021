@@ -1,39 +1,126 @@
 # Intégration de données
 
-Nous allons reprendre une partie du travail fait dans le TP2, cette fois-ci sous R. Vous devez d'abord télécharger la base [`Comptoir2000`](https://fxjollois.github.io/donnees/Comptoir2000/Comptoir2000.sqlite) au format `SQLite`.
+Nous allons réaliser le processus ETL sur le datamart vu en cours. Vous devez d'abord télécharger la base [`Comptoir2000`](https://fxjollois.github.io/donnees/Comptoir2000/Comptoir2000.sqlite) au format `SQLite`. Pour rappel, voici le schéma du datamart souhaité.
 
-## Connexion à un SI dans R
+![Data mart](./dm.svg)
+
+## Connexion à une BD dans R
+
+**Note** : installer les packages `DBI` et `RSQLite` dans R avant l'exécution du code qui suit. 
 
 ### Etablir la connexion
 
-Il est possible de se connecter à un SI sous R, en grande partie grâce au package `DBI`, et à d'autres packages spécifiques pour chaque moteur (`SQLite`, `Oracle`, `SQL Server`, ...). Par exemple, pour se connecter à la base `Comptoir2000` au format `SQLite`, il est possible de procéder ainsi :
+Il est possible de se connecter à une BD sous R, en grande partie grâce au package `DBI`, et à d'autres packages spécifiques pour chaque moteur (`SQLite`, `Oracle`, `SQL Server`, ...). Par exemple, pour se connecter à la base `Comptoir2000` au format `SQLite`, il est possible de procéder ainsi :
 
 ```r
 library(DBI)
+# Connexion à la BD
 cpt = dbConnect(RSQLite::SQLite(), "Comptoir2000.sqlite")
+
+# Liste des tables
 dbListTables(cpt)
+
+# Déconnexion de la BD
 dbDisconnect(cpt)
 ```
 
 Pour information, lorsqu'on se connecte à un fichier inexistant, celui-ci est créée automatiquement. De plus, cette connexion est en mode écriture, ce qui fait que toute modification de la base est sauvegardée.
 
-L'avant-dernière fonction de l'exemple ci-dessus, comme son nom l'indique, permet de lister les tables d'une base de données. Il existe aussi des fonctions de lecture de tables (`dbReadTable()`), d'écriture de tables à partir d'un data-frame (`dbWriteTable()`), de création de table (`dbCreateTable()` et `sqlCreateTable()`), de suppression de table (`dbRemoveTable()`), et bien d'autres encore.
+### Fonctions utiles
 
-### Requêtage DQL (`SELECT`)
+| Fonction | Rôle |
+|-|-|
+| `dbConnect()` | Connexion à la BD <br> si fichier inexistant, création automatique |
+| `dbDisconnect()` | Déconnexion de la BD <br> à faire à la fin du script |
+| `dbListTables()` | Liste des tables de la BD |
+| `dbListFields()` | Liste des champs d'une table spécifique |
+| `dbReadTable()` | Lecture d'une table <br> équivalent à un `SELECT *` |
+| `dbWriteTable()` | Ecriture d'un data-frame dans une table <br> équivalent à un `CREATE TABLE ... AS` |
+| `dbCreateTable()` | idem mais <br>avec la possibilité de <br> créer une table vide en listant les champs |
+| `dbRemoveTable()` | Suppression d'une table <br> équivalent à un `DROP ...` |
+| `sqlCreateTable()` | Création d'une table (avec liste des champs) |
+| `dbGetQuery()` | Exécution directe d'une requête SQL de type `SELECT` |
+| `dbExecute()` | Exécution directe d'une requête SQL <br> (au format chaîne de caractères) <br> pour tout ce qui est autre que `SELECT` |
+| `dbSendStatement()` | Exécution différée d'une requête SQL <br> (au format chaîne elle-aussi) <br> à finir avec `dbClearResult()` |
 
-On doit exécuter les requêtes  `SELECT` avec 2 fonctions : `dbGetQuery()` pour une exécution directe (renvoie un data-frame) et `dbSendQuery()` pour une exécution sur le moteur mais sans retour de résultat immédiat (il faut ensuite utiliser `dbFetch()` pour les obtenir et `dbClearResult()` pour finaliser le traitement par le moteur). L'intérêt de la deuxième est dans le cas de requêtes retournant des tables très grandes. Nous allons privilégier la première ici.
 
+### Exemples d'utilisation
+
+Voici un code permettant les étapes suivantes :
+
+1. Se connecter à la BD source et au data-mart cible
 ```r
-dbGetQuery(cpt, "SELECT * FROM Client;")
+library(DBI)
+cpt = dbConnect(RSQLite::SQLite(), "Comptoir2000.sqlite")
+dm = dbConnect(RSQLite::SQLite(), "datamart.sqlite")
 ```
-
-### Requêtage DDL et DML
-
-Pour tout ce qui est manipulation de données (création, suppression, insertion, mise à jour, ...), il faut utiliser les fonctions `dbExecute()` et `dbSendStatement()`. La différence entre les 2 est la même que précédemment. `dbExecute()` permet de réaliser les requêtes directement et renvoie le nombre de lignes affectées par la commande. Alors que pour `dbSendStatement()`, la requête est exécuté sur le serveur, mais sans blocage dans R (vous pouvez faire d'autres commandes ensuite). Pour savoir si la commande envoyée est finie, il faut tester avec la fonction `dbHasCompleted()`. On peut connaître le nombre de lignes affectées avec `dbGetRowsAffected()`. Enfin, comme pour `dbSendQuery()`, on finit l'opération avec `dbClearResult()`. 
-
+2. Lister les tables de la source
+```r
+dbListTables(cpt)
+```
+3. Lire le contenu de la table `Messager` de 2 façons
+```r
+dbReadTable(cpt, "Messager")
+dbGetQuery(cpt, "SELECT * FROM Messager;")
+```
+4. D'intégrer une nouvelle table `aaaaa` dans le data-mart
+    1. Création d'un data frame dans R nommé `a`, avec 2 variables
+        - `x`: 1, 2, ..., 5
+        - `y`: "a", "b", ..., "e" 
+    2. Ecriture de ce dataframe dans le DM, dans une table nommée `aaaaa`
+    3. Liste des tables du data-mart (la table doit apparaître)
+    4. Lecture du contenu de cette table
+```r
+a = data.frame(x = 1:5, y = letters[1:5])
+dbWriteTable(dm, "aaaaa", a)
+dbListTables(dm)
+dbReadTable(dm, "aaaaa")
+```
+5. Ajouter une ligne dans la table `Messager`
+    1. Exécution de la requête `INSERT INTO ...`
+    2. Lecture du contenu pour voir la modification
 ```r
 dbExecute(cpt, "INSERT INTO Messager (NoMess, NomMess) VALUES (5, 'La Poste')")
 dbReadTable(cpt, "Messager")
+```
+6. Ajouter une nouvelle table dans le data-mart
+    1. Création d'une table `B` avec le formalisme SQL, et 2 attributs
+        - `cle` : clé primaire
+        - `ref` : qui fait référence à l'attribut `x` de `A`
+    2. Population de cette table avec des valeurs
+        - `cle` : 1, 2, ..., 10
+        - `ref` : une valeur entre 1 et 5 aléatoire
+    3. Listing du contenu de cette table
+```r
+dbExecute(dm, "
+CREATE TABLE B (
+  cle INT NOT NULL PRIMARY KEY,
+  ref INT REFERENCES A (x)
+);
+           ")
+for (i in 1:10) {
+  cle = i
+  ref = sample(1:5)[1]
+  requete = paste0("INSERT INTO B VALUES (", cle, ", ", ref, ")")
+  print(requete)
+  dbExecute(dm, requete)
+}
+dbReadTable(dm, "B")
+```
+7. Exécuter une requête type, avec jointure et agrégat
+```r
+dbGetQuery(dm, "
+SELECT x, COUNT(*) AS Nb
+  FROM aaaaa, B
+  WHERE aaaaa.x = B.ref
+  GROUP BY x
+  ORDER BY 2 DESC
+           ")
+```
+8. Se déconnecter des BDs
+```r
+dbDisconnect(cpt)
+dbDisconnect(dm)
 ```
 
 ### Travail à faire
