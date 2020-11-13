@@ -26,8 +26,8 @@ SELECT DISTINCT TypeObj
 ```
 SELECT NomAuteur, PrenomAuteur
     FROM OUVRAGE 
-            INNER JOIN ECRIT ON OUVRAGE.NumOuv = ECRIT.NumOuv
-            INNER JOIN AUTEUR ON ECRIT.NumAuteur = AUTEUR.NumAuteur
+        INNER JOIN ECRIT USING (NumAuteur)
+        INNER JOIN AUTEUR USING (NumOuv)
     WHERE TitreOuv = "Mémoire sur quelques antiquités remarquables du département des Vosges";
 ```
 ou
@@ -42,6 +42,13 @@ SELECT NomAuteur, PrenomAuteur
 
 #### Quelles sont les villes où sont présents à la fois un musée et un site archéologique ?
 ```
+SELECT DISTINCT ANomVille, MNomVille
+    FROM VILLE
+        INNER JOIN MUSEE USING (CodeVille)
+        INNER JOIN LOCALISE USING (CodeVille);
+```
+
+```
 SELECT MNomVille, ANomVille
     FROM VILLE
     WHERE CodeVille IN (SELECT CodeVille FROM MUSEE)
@@ -51,7 +58,9 @@ SELECT MNomVille, ANomVille
 #### A la date d'aujourd'hui, calculez le nombre d'objets exposés dans chaque musée.
 ```
 SELECT CodeMusee, NomMusee, COUNT(*) AS "Nb Objet"
-    FROM MUSEE INNER JOIN EXPOSE ON MUSEE.CodeMusee = EXPOSE.CodeMusee
+    FROM MUSEE 
+        INNER JOIN EXPOSE USING (CodeMusee)
+        INNER JOIN VILLE USING (CodeVille)
     WHERE DateDeb <= DATE("now")
     AND DateFin >= DATE("now")
     GROUP BY CodeMusee, NomMusee;
@@ -59,7 +68,9 @@ SELECT CodeMusee, NomMusee, COUNT(*) AS "Nb Objet"
 ou
 ```
 SELECT CodeMusee, NomMusee, COUNT(*) AS "Nb Objet"
-    FROM MUSEE INNER JOIN EXPOSE ON MUSEE.CodeMusee = EXPOSE.CodeMusee
+    FROM MUSEE
+        INNER JOIN EXPOSE USING (CodeMusee)
+        INNER JOIN VILLE USING (CodeVille)
     WHERE DATE("now") BETWEEN DateDeb AND DateFin
     GROUP BY CodeMusee, NomMusee;
 ```
@@ -74,12 +85,27 @@ SELECT NumAuteur, NomAuteur, PrenomAuteur, COUNT(*) AS "Nb Livres"
     LIMIT 5;
 ```
 
+
+##### Exemple sur COUNT()
+
+- Compter le nombre de sites : `COUNT(*)`
+- Compter le nombre de sites pour lesquels je connais la civilisation : `COUNT(CivSite)`
+- Compter le nombre de civilisations différentes : `COUNT(DISTINCT CivSite)`
+
+```
+SELECT COUNT(*) AS "Nb sites",
+    COUNT(CivSite) AS "Nb sites avec civ connue",
+    COUNT(DISTINCT CivSite) AS "Nb civilisations"
+  FROM SITE;
+```
+
+
 #### Donnez les 10 villes les plus référencées dans les ouvrages (via les sites donc).
 ```
 SELECT MNomVille, ANomVille, COUNT(*) AS "Nb Références"
-    FROM VILLE, LOCALISE, REFSITE
-    WHERE VILLE.CodeVille = LOCALISE.CodeVille
-    AND   LOCALISE.CodeSite = REFSITE.CodeSite
+    FROM VILLE
+        INNER JOIN LOCALISE USING (CodeVille)
+        INNER JOIN REFSITE USING (CodeSite)
     GROUP BY MNomVille, ANomVille
     ORDER BY 3 DESC
     LIMIT 10;
@@ -137,12 +163,15 @@ SELECT NumAuteur, NomAuteur, PrenomAuteur
     WHERE NOT EXISTS 
         (SELECT CivSite
             FROM SITE
-            WHERE NOT EXISTS 
-                (SELECT *
-                    FROM ECRIT, REFSITE
-                    WHERE ECRIT.NumOuv = REFSITE.NumOuv
-                    AND ECRIT.NumAuteur = AUTEUR.NumAuteur
+            WHERE NOT IN
+                (SELECT CivSite
+                    FROM SITE
+                        INNER JOIN REFISTE USING (CodeSite)
+                        INNER JOIN ECRIT USING (NumOuv)
+                    WHERE NumAuteur = AUTEUR.NumAuteur
                     AND CodeSite = SITE.CodeSite));
 ```
+
+Ici, on cherche un auteur pour lequel il n'existe pas de civilisation dans la table site qui ne soit pas dans la liste des civilisations sur lequel cet auteur a écrit via les livres et les sites.
 
     

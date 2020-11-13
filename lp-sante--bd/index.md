@@ -25,5 +25,6 @@ Interventions :
     - [TD2 - MRD et algèbre relationnel](td2)
     - [TD2 - correction MRD](td2-correction-MRD)
     - [TD2 - correction créations des tables](td2-correction-creations)
+    - [TD2 - correction requêtes](td2-correction-requetes)
     
 - [TP SQL](tp1)
