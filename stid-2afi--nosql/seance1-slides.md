@@ -27,6 +27,8 @@ A l'heure actuelle, les BD classiquement utilisées sont les BD relationnelles :
     - reliées entre elles par des relations
 - stockage persistant
 
+--
+
 Celles-ci sont gérées dans un SGBD permettant :
 
 - l'accès aux fichiers sur le disque
@@ -58,6 +60,8 @@ Mais un **nouveau contexte** est apparu :
     - Recherche dans des documents pas optimale
     - Capacités de stockage limités
 
+--
+
 Il a donc fallu développer de nouveaux outils avec les caractéristiques suivantes :
 
 - Distribution des données pour résister à la montée en charge
@@ -69,10 +73,12 @@ Il a donc fallu développer de nouveaux outils avec les caractéristiques suivan
 
 On distingue deux grands types de passage à l'échelle
 
+--
 **Vertical scaling** (ou *scaling up*)
 
 - on augmente la capacité de l'unique serveur
 
+--
 **Horizontal scaling** (ou *scaling out*)
 
 - on ajoute des petits serveurs
@@ -83,12 +89,13 @@ On distingue deux grands types de passage à l'échelle
 
 La première coûtant rapidement très chère, la deuxième solution est celle privilégiée, selon deux possibilités :
 
+--
 - Paradigme *Maître/Esclave*
     - Ecritures par le maître, lecture par les esclaves
     - Réplication directe des écritures aux esclaves (donc lecture éventuellement fausse car avant fin de la réplication)
     - temps de réplication pouvant être très long
 
-
+--
 - *Partitionnement*
     - Répartition des données dans les différents noeuds
     - Pas transparent : la répartition doit potentiellement être connue des applications
@@ -103,16 +110,16 @@ D'autres solutions sont envisageables :
 - Plusieurs *Maîtres*, avec réplication
     - gestion d'accès concurrents
 
-
+--
 - Ne permettent que des `INSERT`, sans `UPDATE` ou `DELETE`
     - les données sont seulement inactivées, et non supprimées
 
-
+--
 - Limiter au maximum (voire les supprimer) les `JOIN`
     - dénormalisation des données
     - tables de taille (très) importantes
 
-
+--
 - Bases de données *In-Memory*
     - données stockées sur la **RAM**
     - suppression des temps d'accès aux disques
@@ -126,11 +133,11 @@ On parle maintenant de systèmes **NoSQL** (pour *Not Only SQL*)
 - Classe de BD non relationnelles
     - Rien de nouveau réellement, existent depuis plus longtemps que les SBGDR
 
-
+--
 - Pas forcément de schéma fixe des données
 - Pas forcément d'utilisation du concept de **jointure**
 
-
+--
 - Relaxation d'au moins une des propriétés **ACID** :
     - **A**tomicity
     - **C**onsistancy
@@ -145,10 +152,10 @@ Pourquoi on en (re)parle
 
 - Explosion des réseaux sociaux
 
-
+--
 - Croissance de l'utilisation du stockage en ligne, distribué
 
-
+--
 - Grande dynamique de la communauté open-source
 
 ---
@@ -157,12 +164,14 @@ Pourquoi on en (re)parle
 
 Proposé par Brewer (2000), puis amélioré par la suite par Gilbert et Lynch.
 
+--
 Il existe trois propriétés essentielles d'un système :
 
 - **Consistency** (cohérence) : les données sont cohérentes entre tous les noeuds
 - **Availability** (disponibilité) : les données sont disponibles à n'importe quel moment
 - **Partition Tolerance** (resistance au partitionnement) : le système continue de fonctionner même si un des noeuds est inopérant
 
+--
 **Problème** : Aucun système distribué ne peut respecter ces trois propriétés.
 
 ---
@@ -173,10 +182,10 @@ On a donc le choix entre :
 
 - **C + A** : un problème sur un des noeuds fait stopper le système (les SGBDR classiques sont plutôt dans cette catégorie)
 
-
+--
 - **C + P** : les données ne sont pas forcément disponibles au moment de la requête
 
-
+--
 - **A + P** : les données renvoyées ne sont pas toujours cohérentes
 
 ---
@@ -197,9 +206,9 @@ Tous les systèmes actuels des géants du web sont dans cette configuration **BA
 
 # Typologie NoSQL
 
-Il existe quatre principaux types de bases de données dites NoSQL (voir [ce site web](http://nosql-database.org/), d'autres existent mais nous n'en parlerons pas ici).
+Quatre principaux types NoSQL (voir [ce site web](http://nosql-database.org/))
 
-Scofield a proposé un comparatif de ceux-ci sur quelques critères (avec les SGBDR classiques en plus).
+Scofield a proposé un comparatif de ceux-ci sur quelques critères :
 
 Data Model | Performance | Scalability | Flexibility | Complexity | Functionality
 -|-|-|-|-|-
@@ -212,8 +221,6 @@ Data Model | Performance | Scalability | Flexibility | Complexity | Functionalit
 ---
 
 # Key-Value Store
-
-Principe :
 
 - Système à base de couples *clé / valeur*
 - Tableau associant des clés à un espace mémoire où sont stockées les valeurs
@@ -248,6 +255,7 @@ Exemples :
 - Interface de requêtage très simple et souvent accessible facilement, par n'importe quel langage
 - Performances très élevées en lecture et en écriture
 
+--
 **Contre** :
 
 - Modèle très (trop ?) simple
@@ -256,8 +264,6 @@ Exemples :
 ---
 
 # Document-Oriented Store
-
-Principe :
 
 - Documents stockés dans un format clé/valeur, où la valeur est structuré
 - Structure d'un document sous forme arborescente
@@ -291,6 +297,7 @@ Pas de prototypage ou de modélisation des données en amont nécessaires
 - Mise à l'échelle aisée
 - Requêtage sur le contenu des documents possible
 
+--
 **Contre**
 
 - pas fait pour des données liées
@@ -299,8 +306,6 @@ Pas de prototypage ou de modélisation des données en amont nécessaires
 ---
 
 # Column-Oriented Store
-
-Principe :
 
 - Données stockées par colonnes, et non par lignes
 - A chaque valeur possible d'un attribut, on indique l'objet ayant cette valeur
@@ -335,6 +340,7 @@ Bien qu'ils soient étiquetés dans le même groupe pour les BD NoSQL, ces deux 
 - Parfait pour les datawarehouses (type **A**) et pour les opérations de type agrégation
 - Très grande flexibilité (type **B**)
 
+--
 **Contre**
 
 - Pas adapté aux données reliées ou complexes
@@ -343,8 +349,6 @@ Bien qu'ils soient étiquetés dans le même groupe pour les BD NoSQL, ces deux 
 ---
 
 # Graph Database
-
-Principe :
 
 - Modèle basé sur la théorie des graphes
 - Adapté à la manipulation d'objets structuré en réseau : cartographie, réseaux sociaux, ...
@@ -367,12 +371,14 @@ Typiquement adapté aux traitements des problématiques de type réseaux sociaux
 
 Particulièrement adapté à ce qu'on appelle le *Web sémantique* et les moteurs de recommandation
 
+--
 **Pour**
 
 - Très efficace pour les données liées
 - Modèles d'interrogation établis et performant
 - Capacité de gérer des (très) grosses quantités de données
 
+--
 **Contre**
 
 - Partitionnement (de type *sharding*)
@@ -402,7 +408,7 @@ Particulièrement adapté à ce qu'on appelle le *Web sémantique* et les moteur
     - système de stockage de cache ou dÊ¼information de sessions distribuées
     - profils, préférences dÊ¼utilisateur, paniers d'achat, capteurs, logs
 
-
+--
 - *Column Store*
     - logging et analyse de clientèle (NetFlix)
     - optimisation de recherche (eBay)
@@ -420,7 +426,7 @@ Particulièrement adapté à ce qu'on appelle le *Web sémantique* et les moteur
     - Catalogue de produits
     - Systèmes d'exploitation
 
-
+--
 - *Graph database*
     - Moteurs de recommandation
     - BI, Semantic Web
