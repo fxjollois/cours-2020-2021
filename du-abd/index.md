@@ -1,19 +1,11 @@
 # Introduction à MongoDB (avec R)
 
-<!-- <a href="https://rendez-vous.renater.fr/du-abd--jollois" target="_blank">https://rendez-vous.renater.fr/du-abd--jollois</a> | -->
-
-<!-- <a href="https://rendez-vous.renater.fr/du-abd%E2%80%93jollois" target="_blank">https://rendez-vous.renater.fr/du-abd%E2%80%93jollois</a> | -->
-
-| Outil | Lien |
-|-|-|
-| Visio | |
-| Partage de code | <a href="https://codeshare.io/anpJ4v" target="_blank">https://codeshare.io/anpJ4v</a> |
-
 - [Présentation de MongoDB](du-abd--slides.html)
 - [Introduction à R et **MongoDB**](du-abd--r-mongodb)
 
-- [Introduction à R et **Hadoop**](du-abd--r-hadoop.html) (avec **SparkR**)
+Non vu aujourd'hui mais ressource potentiellement intéressante pour vous :
 
+- [Introduction à R et **Hadoop**](du-abd--r-hadoop.html) (avec **SparkR**)
 
 
 ## Pour travail à la maison
