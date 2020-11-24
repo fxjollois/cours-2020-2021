@@ -13,6 +13,7 @@
     - [Travaux de fin d'études](stid-2afa--tfe)
 - LP Santé
     - [Bases de données](lp-sante--bd)
+    - [Tableaux de bord](lp-sante--tdb)
 - LP Data Mining
     - [Bases de données](lp-dm--bd)
 - DU Analyste Big Data
