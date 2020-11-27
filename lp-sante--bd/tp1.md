@@ -16,7 +16,7 @@ Nous utiliserons la base de données [Sakila](http://fxjollois.github.io/donnees
 - Quels sont les clients inactifs (`active` est égal à 0) ?
 - Quels sont les 10 films les plus longs ?
 - Quels films ont le mot "dinosaur" dans leur titre ?
-- Quels sont les films ayant le mot "scientist" dans leur description ? (attention, cet attribut est de type `BLOB` - on ne peut pas chercher dedans une sous-chaine directement)
+- Quels sont les films ayant le mot "scientist" dans leur description ? 
 
 - Afficher pour chaque film son titre, son "âge", sa durée en heures (de type "1h43")
 - Calculer pour chaque location (`rental`) la durée en jours de celle-ci
