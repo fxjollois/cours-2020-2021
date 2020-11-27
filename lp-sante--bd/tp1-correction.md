@@ -166,7 +166,7 @@ SELECT name, round(avg(rental_rate), 2) AS "Prix moyens"
 
 #### Existe-t’il des clients ayant le même nom et le même prénom que des acteurs ? (si oui, lesquels)
 ```
-SELECT C.first_name, A.last_name
+SELECT C.first_name, C.last_name
 	FROM customer C, actor A
     WHERE C.first_name = A.first_name
     AND C.last_name = A.last_name;
