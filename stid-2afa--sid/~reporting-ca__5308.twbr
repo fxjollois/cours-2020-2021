@@ -1,0 +1,1377 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20203.20.1110.1623                               -->
+<workbook source-build='2020.3.3 (20203.20.1110.1623)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <_.fcp.SetMembershipControl.true...SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+    <WorksheetBackgroundTransparency />
+    <ZoneBackgroundTransparency />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='18.1'>
+      <aliases enabled='yes' />
+      <column caption='choixDepartement' datatype='string' name='[Paramètre 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Meubles&quot;'>
+        <calculation class='tableau' formula='&quot;Meubles&quot;' />
+        <members>
+          <member value='&quot;Bijouterie - Pendules&quot;' />
+          <member value='&quot;Lingerie&quot;' />
+          <member value='&quot;Maroquinerie - parapluies&quot;' />
+          <member value='&quot;Ménage&quot;' />
+          <member value='&quot;Meubles&quot;' />
+          <member value='&quot;Montres&quot;' />
+          <member value='&quot;Optique - Photos&quot;' />
+          <member value='&quot;Radio -TV&quot;' />
+          <member value='&quot;Sports - Meubles de jardin&quot;' />
+          <member value='&quot;Tapis - rideaux&quot;' />
+        </members>
+      </column>
+      <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+        <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+        <members>
+          <member value='&quot;Boutique&quot;' />
+          <member value='&quot;Commandes téléphoniques&quot;' />
+          <member value='&quot;Expo&quot;' />
+          <member value='&quot;Magasin&quot;' />
+          <member value='&quot;Par correspondance&quot;' />
+          <member value='&quot;Revetement de sol professionnel&quot;' />
+          <member value='&quot;Studio Photo&quot;' />
+          <member value='&quot;Studio Radio TV&quot;' />
+          <member value='&quot;Vente aux employés&quot;' />
+          <member value='&quot;Zürich&quot;' />
+        </members>
+      </column>
+    </datasource>
+    <datasource caption='tout (ca_travail)' inline='true' name='federated.1278aok0gqeze41b0rtag1qeh2xs' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='ca_travail' name='msaccess.1mjv75816iuyv01cc3d2s0ssjysl'>
+            <connection authentication='no' class='msaccess' driver='' filename='C:/Users/François-XavierJollo/Documents/GitHub/cours-2020-2021/stid-2afa--sid/ca_travail.mdb' mdwpath='' server='' username='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='msaccess.1mjv75816iuyv01cc3d2s0ssjysl' name='tout' table='[tout]' type='table' />
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='msaccess.1mjv75816iuyv01cc3d2s0ssjysl' name='tout' table='[tout]' type='table' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>annee</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[annee]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>annee</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ca</remote-name>
+            <remote-type>4</remote-type>
+            <local-name>[ca]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>ca</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>7</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>departement</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[departement]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>departement</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>groupe</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[groupe]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>groupe</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>mois</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[mois]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>mois</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>mois_numero</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[mois_numero]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>mois_numero</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>no</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[no]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>no</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>provenance</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[provenance]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>provenance</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>sous_groupe</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[sous_groupe]</local-name>
+            <parent-name>[tout]</parent-name>
+            <remote-alias>sous_groupe</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LFR_RFR_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='filtreDepartement' datatype='string' name='[Calculation_373517350172004355]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF ([departement] == [Parameters].[Paramètre 1]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+      </column>
+      <column caption='filtreProvenance' datatype='string' name='[Calculation_373517350180749316]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF ([provenance] == [Parameters].[Paramètre 2]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+      </column>
+      <column caption='Dpt_Grp_SSGrp' datatype='string' name='[Calculation_373517350182305797]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='[departement] + &quot;|&quot; + [groupe] + &quot;|&quot; + [sous_groupe]' />
+      </column>
+      <column caption='Date' datatype='date' name='[Calculation_373517350267637766]' role='dimension' type='quantitative'>
+        <calculation class='tableau' formula='DATE(STR([annee]) + &quot;-&quot; + STR([mois_numero]) + &quot;-01 12:00&quot;)' />
+      </column>
+      <_.fcp.ObjectModelTableType.true...column caption='tout' datatype='table' name='[__tableau_internal_object_id__].[tout_73FEFD1B69E54C3B9DB17EB60B92DFDD]' role='measure' type='quantitative' />
+      <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+      <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+      <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+      <column caption='Groupe' datatype='string' name='[groupe]' role='dimension' type='nominal' />
+      <column caption='Mois' datatype='string' name='[mois]' role='dimension' type='nominal' />
+      <column caption='Mois Numero' datatype='integer' name='[mois_numero]' role='dimension' type='quantitative' />
+      <column caption='No' datatype='integer' name='[no]' role='measure' type='quantitative' />
+      <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+      <column caption='Sous Groupe' datatype='string' name='[sous_groupe]' role='dimension' type='nominal' />
+      <column-instance column='[mois]' derivation='None' name='[none:mois:nk]' pivot='key' type='nominal' />
+      <drill-paths>
+        <drill-path name='HIérarchie Annee'>
+          <field>[annee]</field>
+          <field>[mois]</field>
+        </drill-path>
+        <drill-path name='Hiérarchie Departement'>
+          <field>[departement]</field>
+          <field>[groupe]</field>
+          <field>[sous_groupe]</field>
+        </drill-path>
+      </drill-paths>
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;France&quot;' />
+      </semantic-values>
+      <date-options start-of-week='monday' />
+      <default-sorts>
+        <manual-sort column='[none:mois:nk]' direction='ASC'>
+          <dictionary>
+            <bucket>&quot;Janvier&quot;</bucket>
+            <bucket>&quot;Février&quot;</bucket>
+            <bucket>&quot;Mars&quot;</bucket>
+            <bucket>&quot;Avril&quot;</bucket>
+            <bucket>&quot;Mai&quot;</bucket>
+            <bucket>&quot;Juin&quot;</bucket>
+            <bucket>&quot;Juillet&quot;</bucket>
+            <bucket>&quot;Août&quot;</bucket>
+            <bucket>&quot;Septembre&quot;</bucket>
+            <bucket>&quot;Octobre&quot;</bucket>
+            <bucket>&quot;Novembre&quot;</bucket>
+            <bucket>&quot;Décembre&quot;</bucket>
+          </dictionary>
+        </manual-sort>
+      </default-sorts>
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='choixDepartement' datatype='string' name='[Paramètre 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Meubles&quot;'>
+          <calculation class='tableau' formula='&quot;Meubles&quot;' />
+        </column>
+        <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+          <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+        </column>
+      </datasource-dependencies>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='tout' id='tout_73FEFD1B69E54C3B9DB17EB60B92DFDD'>
+            <properties context=''>
+              <relation connection='msaccess.1mjv75816iuyv01cc3d2s0ssjysl' name='tout' table='[tout]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Feuille 7'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='Date' datatype='date' name='[Calculation_373517350267637766]' role='dimension' type='quantitative'>
+              <calculation class='tableau' formula='DATE(STR([annee]) + &quot;-&quot; + STR([mois_numero]) + &quot;-01 12:00&quot;)' />
+            </column>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+            <column caption='Mois Numero' datatype='integer' name='[mois_numero]' role='dimension' type='quantitative' />
+            <column-instance column='[Calculation_373517350267637766]' derivation='None' name='[none:Calculation_373517350267637766:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[departement]' derivation='None' name='[none:departement:nk]' pivot='key' type='nominal' />
+            <column-instance column='[ca]' derivation='Sum' name='[pcto:sum:ca:qk]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Columns' type='PctTotal' />
+            </column-instance>
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='display' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350267637766:qk]' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='text-format' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350267637766:qk]' value='*mmmm yyyy' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Area' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1278aok0gqeze41b0rtag1qeh2xs].[pcto:sum:ca:qk]</rows>
+        <cols>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350267637766:qk]</cols>
+        <percentages enabled='true' mode='column' />
+      </table>
+      <simple-id uuid='{3B6E2D26-338B-4B7D-A399-45856735856B}' />
+    </worksheet>
+    <worksheet name='Feuille 8'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='Date' datatype='date' name='[Calculation_373517350267637766]' role='dimension' type='quantitative'>
+              <calculation class='tableau' formula='DATE(STR([annee]) + &quot;-&quot; + STR([mois_numero]) + &quot;-01 12:00&quot;)' />
+            </column>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Mois Numero' datatype='integer' name='[mois_numero]' role='dimension' type='quantitative' />
+            <column-instance column='[annee]' derivation='None' name='[none:annee:nk]' pivot='key' type='ordinal' />
+            <column-instance column='[ca]' derivation='Sum' name='[sum:ca:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_373517350267637766]' derivation='Year-Trunc' name='[tyr:Calculation_373517350267637766:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' />
+            </encodings>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1278aok0gqeze41b0rtag1qeh2xs].[tyr:Calculation_373517350267637766:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' />
+            </encodings>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.1278aok0gqeze41b0rtag1qeh2xs].[tyr:Calculation_373517350267637766:qk] + [federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk])</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{8B93D3AC-1A03-482E-B5E0-A31A235D1E41}' />
+    </worksheet>
+    <worksheet name='Reporting-Barres'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+            <datasource caption='Paramètres' name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='choixDepartement' datatype='string' name='[Paramètre 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Meubles&quot;'>
+              <calculation class='tableau' formula='&quot;Meubles&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='filtreDepartement' datatype='string' name='[Calculation_373517350172004355]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ([departement] == [Parameters].[Paramètre 1]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+            </column>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+            <column-instance column='[ca]' derivation='Sum' name='[diff:sum:ca:qk:7]' pivot='key' type='quantitative'>
+              <table-calc diff-options='Relative' ordering-field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' ordering-type='Field' type='Difference'>
+                <address>
+                  <value>-1</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column-instance column='[ca]' derivation='Sum' name='[diff:sum:ca:qk]' pivot='key' type='quantitative'>
+              <table-calc diff-options='Relative' ordering-type='Columns' type='Difference'>
+                <address>
+                  <value>-1</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column-instance column='[Calculation_373517350172004355]' derivation='None' name='[none:Calculation_373517350172004355:nk]' pivot='key' type='nominal' />
+            <column-instance column='[annee]' derivation='None' name='[none:annee:nk]' pivot='key' type='ordinal' />
+            <column-instance column='[provenance]' derivation='None' name='[none:provenance:nk]' pivot='key' type='nominal' />
+            <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350172004355:nk]'>
+            <groupfilter function='member' level='[none:Calculation_373517350172004355:nk]' member='&quot;OUI&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' kind='hide'>
+            <groupfilter function='except' user:ui-domain='relevant' user:ui-enumeration='exclusive' user:ui-manual-selection='true' user:ui-manual-selection-all-when-empty='true' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[none:annee:nk]' />
+              <groupfilter function='member' level='[none:annee:nk]' member='2003' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350172004355:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk:7]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='display' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>([federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk] / [federated.1278aok0gqeze41b0rtag1qeh2xs].[none:provenance:nk])</rows>
+        <cols>[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk:7]</cols>
+      </table>
+      <simple-id uuid='{8826B95D-D002-4738-9D30-CA2DFB7FF0F0}' />
+    </worksheet>
+    <worksheet name='Reporting-Courbe'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Mois Numero' datatype='integer' name='[mois_numero]' role='dimension' type='quantitative' />
+            <column-instance column='[annee]' derivation='None' name='[none:annee:nk]' pivot='key' type='ordinal' />
+            <column-instance column='[mois_numero]' derivation='None' name='[none:mois_numero:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[ca]' derivation='Sum' name='[sum:ca:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:mois_numero:qk]' scope='cols' value='' />
+            <format attr='title' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' scope='rows' value='' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]</rows>
+        <cols>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:mois_numero:qk]</cols>
+      </table>
+      <simple-id uuid='{3EDDA93F-8889-48B5-B228-5BCB071AF60F}' />
+    </worksheet>
+    <worksheet name='Reporting-Tableau'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+            <datasource caption='Paramètres' name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='choixDepartement' datatype='string' name='[Paramètre 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Meubles&quot;'>
+              <calculation class='tableau' formula='&quot;Meubles&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='filtreDepartement' datatype='string' name='[Calculation_373517350172004355]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ([departement] == [Parameters].[Paramètre 1]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+            </column>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_373517350172004355]' derivation='None' name='[none:Calculation_373517350172004355:nk]' pivot='key' type='nominal' />
+            <column-instance column='[annee]' derivation='None' name='[none:annee:nk]' pivot='key' type='ordinal' />
+            <column-instance column='[provenance]' derivation='None' name='[none:provenance:nk]' pivot='key' type='nominal' />
+            <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+            <column-instance column='[ca]' derivation='Sum' name='[sum:ca:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350172004355:nk]'>
+            <groupfilter function='member' level='[none:Calculation_373517350172004355:nk]' member='&quot;OUI&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350172004355:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:provenance:nk]</rows>
+        <cols>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]</cols>
+      </table>
+      <simple-id uuid='{55CBC975-C5E5-4DF0-B6DD-0F34A2952758}' />
+    </worksheet>
+    <worksheet name='TdB-Departement'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontalignment='1' fontname='Tableau Semibold'>Résultat des départements</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+            <datasource caption='Paramètres' name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+              <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='filtreProvenance' datatype='string' name='[Calculation_373517350180749316]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ([provenance] == [Parameters].[Paramètre 2]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+            </column>
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_373517350180749316]' derivation='None' name='[none:Calculation_373517350180749316:nk]' pivot='key' type='nominal' />
+            <column-instance column='[departement]' derivation='None' name='[none:departement:nk]' pivot='key' type='nominal' />
+            <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+            <column-instance column='[ca]' derivation='Sum' name='[sum:ca:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]'>
+            <groupfilter function='member' level='[none:Calculation_373517350180749316:nk]' member='&quot;OUI&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <computed-sort column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk]' direction='DESC' using='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' />
+          <slices>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk]' value='268' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk]</rows>
+        <cols>[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]</cols>
+      </table>
+      <simple-id uuid='{9F53F434-55ED-43BE-96FD-3A40694395DB}' />
+    </worksheet>
+    <worksheet name='TdB-Evolution'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+            <datasource caption='Paramètres' name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+              <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='filtreProvenance' datatype='string' name='[Calculation_373517350180749316]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ([provenance] == [Parameters].[Paramètre 2]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+            </column>
+            <column caption='Annee' datatype='integer' datatype-customized='true' name='[annee]' role='dimension' type='ordinal' />
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column-instance column='[ca]' derivation='Sum' name='[diff:sum:ca:qk:6]' pivot='key' type='quantitative'>
+              <table-calc diff-options='Relative' ordering-type='Rows' type='Difference'>
+                <address>
+                  <value>-1</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column caption='Mois' datatype='string' name='[mois]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_373517350180749316]' derivation='None' name='[none:Calculation_373517350180749316:nk]' pivot='key' type='nominal' />
+            <column-instance column='[annee]' derivation='None' name='[none:annee:nk]' pivot='key' type='ordinal' />
+            <column-instance column='[mois]' derivation='None' name='[none:mois:nk]' pivot='key' type='nominal' />
+            <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]'>
+            <groupfilter function='member' level='[none:Calculation_373517350180749316:nk]' member='&quot;OUI&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <slices>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk:6]' scope='rows' value='' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk:6]</rows>
+        <cols>([federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk] / [federated.1278aok0gqeze41b0rtag1qeh2xs].[none:mois:nk])</cols>
+      </table>
+      <simple-id uuid='{2EE40380-8BE4-44D5-BD1D-31C878E0A51D}' />
+    </worksheet>
+    <worksheet name='TdB-TOP10'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontalignment='1' fontname='Tableau Semibold'>TOP 10 Sous-groupes</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='tout (ca_travail)' name='federated.1278aok0gqeze41b0rtag1qeh2xs' />
+            <datasource caption='Paramètres' name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+              <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.1278aok0gqeze41b0rtag1qeh2xs'>
+            <column caption='filtreProvenance' datatype='string' name='[Calculation_373517350180749316]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF ([provenance] == [Parameters].[Paramètre 2]) THEN &quot;OUI&quot; ELSE &quot;NON&quot; END' />
+            </column>
+            <column caption='Dpt_Grp_SSGrp' datatype='string' name='[Calculation_373517350182305797]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='[departement] + &quot;|&quot; + [groupe] + &quot;|&quot; + [sous_groupe]' />
+            </column>
+            <column caption='Ca' datatype='real' name='[ca]' role='measure' type='quantitative' />
+            <column caption='Departement' datatype='string' name='[departement]' role='dimension' type='nominal' />
+            <column caption='Groupe' datatype='string' name='[groupe]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_373517350180749316]' derivation='None' name='[none:Calculation_373517350180749316:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_373517350182305797]' derivation='None' name='[none:Calculation_373517350182305797:nk]' pivot='key' type='nominal' />
+            <column-instance column='[departement]' derivation='None' name='[none:departement:nk]' pivot='key' type='nominal' />
+            <column-instance column='[groupe]' derivation='None' name='[none:groupe:nk]' pivot='key' type='nominal' />
+            <column-instance column='[sous_groupe]' derivation='None' name='[none:sous_groupe:nk]' pivot='key' type='nominal' />
+            <column caption='Provenance' datatype='string' name='[provenance]' role='dimension' type='nominal' />
+            <column caption='Sous Groupe' datatype='string' name='[sous_groupe]' role='dimension' type='nominal' />
+            <column-instance column='[ca]' derivation='Sum' name='[sum:ca:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]'>
+            <groupfilter function='member' level='[none:Calculation_373517350180749316:nk]' member='&quot;OUI&quot;' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]'>
+            <groupfilter count='10' end='top' function='end' units='records' user:ui-marker='end' user:ui-top-by-field='true'>
+              <groupfilter direction='DESC' expression='SUM([ca])' function='order' user:ui-marker='order'>
+                <groupfilter function='level-members' level='[none:Calculation_373517350182305797:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+              </groupfilter>
+            </groupfilter>
+          </filter>
+          <computed-sort column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]' direction='DESC' using='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' />
+          <slices>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350180749316:nk]</column>
+            <column>[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='color' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]' value='#000000' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]' value='10' />
+          </style-rule>
+          <style-rule element='field-labels'>
+            <format attr='color' value='#000000' />
+          </style-rule>
+          <style-rule element='field-labels-decoration'>
+            <format attr='color' value='#000000' />
+          </style-rule>
+          <style-rule element='field-labels-spanner'>
+            <format attr='color' scope='rows' value='#000000' />
+            <format attr='color' scope='cols' value='#000000' />
+          </style-rule>
+          <style-rule element='label'>
+            <format attr='color' field='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk]' value='#ffffff' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='background-color' data-class='total' scope='rows' value='#000000' />
+            <format attr='background-color' data-class='subtotal' value='#00000000' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#ffffff' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='rows' value='false' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <text column='[federated.1278aok0gqeze41b0rtag1qeh2xs].[sum:ca:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.1278aok0gqeze41b0rtag1qeh2xs].[none:Calculation_373517350182305797:nk] / ([federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk] / ([federated.1278aok0gqeze41b0rtag1qeh2xs].[none:groupe:nk] / [federated.1278aok0gqeze41b0rtag1qeh2xs].[none:sous_groupe:nk])))</rows>
+        <cols />
+      </table>
+      <simple-id uuid='{12865603-5DF1-479F-B854-4FAEF03B336B}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Reporting'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <datasources>
+        <datasource caption='Paramètres' name='Parameters' />
+      </datasources>
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='choixDepartement' datatype='string' name='[Paramètre 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Meubles&quot;'>
+          <calculation class='tableau' formula='&quot;Meubles&quot;' />
+          <members>
+            <member value='&quot;Bijouterie - Pendules&quot;' />
+            <member value='&quot;Lingerie&quot;' />
+            <member value='&quot;Maroquinerie - parapluies&quot;' />
+            <member value='&quot;Ménage&quot;' />
+            <member value='&quot;Meubles&quot;' />
+            <member value='&quot;Montres&quot;' />
+            <member value='&quot;Optique - Photos&quot;' />
+            <member value='&quot;Radio -TV&quot;' />
+            <member value='&quot;Sports - Meubles de jardin&quot;' />
+            <member value='&quot;Tapis - rideaux&quot;' />
+          </members>
+        </column>
+      </datasource-dependencies>
+      <zones>
+        <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='4' w='100000' x='0' y='0'>
+          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='60375' id='8' param='horz' w='98400' x='800' y='1000'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='60375' id='6' w='98400' x='800' y='1000'>
+              <zone _.fcp.SetMembershipControl.false...type='text' _.fcp.SetMembershipControl.true...type-v2='text' h='9625' id='3' w='98400' x='800' y='1000'>
+                <formatted-text>
+                  <run bold='true' fontalignment='1' fontname='Tableau Semibold' fontsize='28'>Reporting par département</run>
+                </formatted-text>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='42125' id='5' name='Reporting-Tableau' show-title='false' w='49200' x='800' y='19250'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='32750' id='10' name='Reporting-Barres' show-title='false' w='49200' x='50000' y='19250'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='9375' id='11' name='Reporting-Barres' pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk]' w='49200' x='50000' y='52000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone _.fcp.SetMembershipControl.false...type='paramctrl' _.fcp.SetMembershipControl.true...type-v2='paramctrl' custom-title='true' h='8625' id='9' mode='compact' param='[Parameters].[Paramètre 1]' w='98400' x='800' y='10625'>
+                <formatted-text>
+                  <run>Departement choisi</run>
+                </formatted-text>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='37625' id='12' name='Reporting-Courbe' w='98400' x='800' y='61375'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+        <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='9500' id='13' name='Reporting-Courbe' pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' w='14000' x='12500' y='72750' />
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='1150' minheight='1150' sizing-mode='vscroll' />
+          <zones>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='23' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='22' param='vert' w='98400' x='800' y='1000'>
+                <zone _.fcp.SetMembershipControl.false...type='text' _.fcp.SetMembershipControl.true...type-v2='text' h='9625' id='3' w='98400' x='800' y='1000'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontname='Tableau Semibold' fontsize='28'>Reporting par département</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone _.fcp.SetMembershipControl.false...type='paramctrl' _.fcp.SetMembershipControl.true...type-v2='paramctrl' custom-title='true' h='8625' id='9' mode='compact' param='[Parameters].[Paramètre 1]' w='98400' x='800' y='10625'>
+                  <formatted-text>
+                    <run>Departement choisi</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='42125' id='5' is-fixed='true' name='Reporting-Tableau' show-title='false' w='49200' x='800' y='19250'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='254' h='32750' id='10' is-fixed='true' name='Reporting-Barres' show-title='false' w='49200' x='50000' y='19250'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='9375' id='11' name='Reporting-Barres' pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk]' w='49200' x='50000' y='52000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='37625' id='12' is-fixed='true' name='Reporting-Courbe' w='98400' x='800' y='61375'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone _.fcp.SetMembershipControl.false...type='color' _.fcp.SetMembershipControl.true...type-v2='color' h='9500' id='13' name='Reporting-Courbe' pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' w='14000' x='12500' y='72750'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{B6A30291-80D4-40D8-8318-E283A5050F12}' />
+    </dashboard>
+    <dashboard name='Tableau de bord 3'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <datasources>
+        <datasource caption='Paramètres' name='Parameters' />
+      </datasources>
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='Provenance choisie' datatype='string' name='[Paramètre 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Studio Photo&quot;'>
+          <calculation class='tableau' formula='&quot;Studio Photo&quot;' />
+          <members>
+            <member value='&quot;Boutique&quot;' />
+            <member value='&quot;Commandes téléphoniques&quot;' />
+            <member value='&quot;Expo&quot;' />
+            <member value='&quot;Magasin&quot;' />
+            <member value='&quot;Par correspondance&quot;' />
+            <member value='&quot;Revetement de sol professionnel&quot;' />
+            <member value='&quot;Studio Photo&quot;' />
+            <member value='&quot;Studio Radio TV&quot;' />
+            <member value='&quot;Vente aux employés&quot;' />
+            <member value='&quot;Zürich&quot;' />
+          </members>
+        </column>
+      </datasource-dependencies>
+      <zones>
+        <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='4' w='100000' x='0' y='0'>
+          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='41250' id='8' param='horz' w='98400' x='800' y='19500'>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='41250' id='6' w='98400' x='800' y='19500'>
+              <zone h='41250' id='3' name='TdB-Departement' w='46200' x='800' y='19500'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+              <zone h='41250' id='5' name='TdB-TOP10' w='52200' x='47000' y='19500'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='38250' id='10' name='TdB-Evolution' show-title='false' w='98400' x='800' y='60750'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='9250' id='11' w='98400' x='800' y='10250'>
+            <zone _.fcp.SetMembershipControl.false...type='paramctrl' _.fcp.SetMembershipControl.true...type-v2='paramctrl' h='9250' id='9' mode='compact' param='[Parameters].[Paramètre 2]' w='98400' x='800' y='10250'>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+          </zone>
+          <zone _.fcp.SetMembershipControl.false...type='text' _.fcp.SetMembershipControl.true...type-v2='text' forceUpdate='true' h='9250' id='12' w='98400' x='800' y='1000'>
+            <formatted-text>
+              <run bold='true' fontalignment='1' fontname='Tableau Semibold' fontsize='28'>Tableau de bord Provenance</run>
+            </formatted-text>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='1000' minheight='1000' sizing-mode='vscroll' />
+          <zones>
+            <zone _.fcp.SetMembershipControl.false...type='layout-basic' _.fcp.SetMembershipControl.true...type-v2='layout-basic' h='100000' id='16' w='100000' x='0' y='0'>
+              <zone _.fcp.SetMembershipControl.false...type='layout-flow' _.fcp.SetMembershipControl.true...type-v2='layout-flow' h='98000' id='15' param='vert' w='98400' x='800' y='1000'>
+                <zone _.fcp.SetMembershipControl.false...type='text' _.fcp.SetMembershipControl.true...type-v2='text' forceUpdate='true' h='9250' id='12' w='98400' x='800' y='1000'>
+                  <formatted-text>
+                    <run bold='true' fontalignment='1' fontname='Tableau Semibold' fontsize='28'>Tableau de bord Provenance</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone _.fcp.SetMembershipControl.false...type='paramctrl' _.fcp.SetMembershipControl.true...type-v2='paramctrl' h='9250' id='9' mode='compact' param='[Parameters].[Paramètre 2]' w='98400' x='800' y='10250'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='41250' id='3' is-fixed='true' name='TdB-Departement' w='46200' x='800' y='19500'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='41250' id='5' is-fixed='true' name='TdB-TOP10' w='52200' x='47000' y='19500'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='38250' id='10' is-fixed='true' name='TdB-Evolution' show-title='false' w='98400' x='800' y='60750'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{B6447073-9FB9-4FEF-B6F0-EABE6D0A4635}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' name='Reporting-Tableau'>
+      <cards>
+        <edge name='left'>
+          <strip size='240'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='45'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='240'>
+            <card mode='compact' param='[Parameters].[Paramètre 1]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{70801631-0B68-4BAE-99EE-6313CF043029}' />
+    </window>
+    <window class='worksheet' name='Reporting-Barres'>
+      <cards>
+        <edge name='left'>
+          <strip size='240'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='48'>
+            <card type='columns' />
+          </strip>
+          <strip size='48'>
+            <card type='rows' />
+          </strip>
+          <strip size='45'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='240'>
+            <card mode='compact' param='[Parameters].[Paramètre 1]' type='parameter' />
+            <card pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[diff:sum:ca:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{E2F7D5C4-3F6F-48B4-8173-6873055F77CA}' />
+    </window>
+    <window class='worksheet' name='Reporting-Courbe'>
+      <cards>
+        <edge name='left'>
+          <strip size='240'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='48'>
+            <card type='columns' />
+          </strip>
+          <strip size='48'>
+            <card type='rows' />
+          </strip>
+          <strip size='46'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='255'>
+            <card pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{6DB4B791-2DFD-4276-9802-E8CA50A2D9A6}' />
+    </window>
+    <window class='dashboard' name='Reporting'>
+      <viewpoints>
+        <viewpoint name='Reporting-Barres' />
+        <viewpoint name='Reporting-Courbe'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Reporting-Tableau' />
+      </viewpoints>
+      <active id='3' />
+      <simple-id uuid='{9DB182F5-AC66-46E1-9D5A-4A96F115CCEC}' />
+    </window>
+    <window class='worksheet' name='TdB-TOP10'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='compact' param='[Parameters].[Paramètre 2]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{1E3B297C-26F0-4388-9ACE-F013D037FF21}' />
+    </window>
+    <window class='worksheet' name='TdB-Evolution'>
+      <cards>
+        <edge name='left'>
+          <strip size='240'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='48'>
+            <card type='columns' />
+          </strip>
+          <strip size='48'>
+            <card type='rows' />
+          </strip>
+          <strip size='45'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='255'>
+            <card mode='compact' param='[Parameters].[Paramètre 2]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{2B95EEBC-9421-48C2-B85A-A7D70A8A0DCB}' />
+    </window>
+    <window class='worksheet' name='TdB-Departement'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{A0D5E587-2278-4E55-8D43-868D129E802A}' />
+    </window>
+    <window class='dashboard' name='Tableau de bord 3'>
+      <viewpoints>
+        <viewpoint name='TdB-Departement' />
+        <viewpoint name='TdB-Evolution'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='TdB-TOP10' />
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{461B7043-C10E-4935-B2FC-74DCBD83C1B4}' />
+    </window>
+    <window class='worksheet' name='Feuille 7'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='170'>
+            <card pane-specification-id='0' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:departement:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{14A57173-7A4B-48B9-80FC-BBBD72F696AE}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Feuille 8'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='170'>
+            <card pane-specification-id='1' param='[federated.1278aok0gqeze41b0rtag1qeh2xs].[none:annee:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{86BBD1A8-EFA1-4063-A04D-857C817B0025}' />
+    </window>
+  </windows>
+</workbook>

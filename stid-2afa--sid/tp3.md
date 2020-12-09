@@ -1,232 +1,137 @@
-# Intégration de données
+# Restitution avec Tableau
 
-Nous allons réaliser le processus ETL sur le datamart vu en cours. Vous devez d'abord télécharger la base [`Comptoir2000`](https://fxjollois.github.io/donnees/Comptoir2000/Comptoir2000.sqlite) au format `SQLite`. Pour rappel, voici le schéma du datamart souhaité.
+Nous allons utiliser la base [ca.mdb](ca.mdb) (à télécharger donc) dans l'outil **Tableau**.
 
-![Data mart](./dm.svg)
+## Connecion de la base dans Tableau
 
-## Connexion à une BD dans R
+- Sélectionner 'Microsoft Access' et aller choisir le fichier
+- Utiliser la table `tout` (qui est une vue comprenant toutes les informations du datamart)
+- Vérifier que les attributs ont le bon type (normalement, tout est ok)
 
-**Note** : installer les packages `DBI` et `RSQLite` dans R avant l'exécution du code qui suit. 
+## Paramètrage des données
 
-### Etablir la connexion
+Avant de faire quoique ce soit, nous allons trier correctement les mois 
 
-Il est possible de se connecter à une BD sous R, en grande partie grâce au package `DBI`, et à d'autres packages spécifiques pour chaque moteur (`SQLite`, `Oracle`, `SQL Server`, ...). Par exemple, pour se connecter à la base `Comptoir2000` au format `SQLite`, il est possible de procéder ainsi :
-
-```r
-library(DBI)
-# Connexion à la BD
-cpt = dbConnect(RSQLite::SQLite(), "Comptoir2000.sqlite")
-
-# Liste des tables
-dbListTables(cpt)
-
-# Déconnexion de la BD
-dbDisconnect(cpt)
-```
-
-Pour information, lorsqu'on se connecte à un fichier inexistant, celui-ci est créée automatiquement. De plus, cette connexion est en mode écriture, ce qui fait que toute modification de la base est sauvegardée.
-
-### Fonctions utiles
-
-| Fonction | Rôle |
-|-|-|
-| `dbConnect()` | Connexion à la BD <br> si fichier inexistant, création automatique |
-| `dbDisconnect()` | Déconnexion de la BD <br> à faire à la fin du script |
-| `dbListTables()` | Liste des tables de la BD |
-| `dbListFields()` | Liste des champs d'une table spécifique |
-| `dbReadTable()` | Lecture d'une table <br> équivalent à un `SELECT *` |
-| `dbWriteTable()` | Ecriture d'un data-frame dans une table <br> équivalent à un `CREATE TABLE ... AS` |
-| `dbCreateTable()` | idem mais <br>avec la possibilité de <br> créer une table vide en listant les champs |
-| `dbRemoveTable()` | Suppression d'une table <br> équivalent à un `DROP ...` |
-| `sqlCreateTable()` | Création d'une table (avec liste des champs) |
-| `dbGetQuery()` | Exécution directe d'une requête SQL de type `SELECT` |
-| `dbExecute()` | Exécution directe d'une requête SQL <br> (au format chaîne de caractères) <br> pour tout ce qui est autre que `SELECT` |
-| `dbSendStatement()` | Exécution différée d'une requête SQL <br> (au format chaîne elle-aussi) <br> à finir avec `dbClearResult()` |
+- Clic-droit sur "Mois", puir "Propriétés par défaut", puis cliquer sur "Trier"
+- Choisir "Manuel"
+- Vérifier que l'ordre est le bon (par défaut, il est ok, car ordre dans la base, mais il est préférable de faire attention)
+- Fermer la fenêtre
 
 
-### Exemples d'utilisation
+Ensuite, nous allons définir les hiérarchies 
 
-Voici un code permettant les étapes suivantes :
+- Hiérarchie département
+    - Clic-droit sur "Département" puis sur "Hiérarchie", et cliquer sur "Créer une hiérarchie"
+    - Nommer la "Hiérarchie département" par exemple
+    - Faites un Glisser-Déplacer de "Groupe" et "Sous-groupe" pour les mettre dans la hiérarchie, mais dans cet ordre donc :
+        1. Département
+        2. Groupe
+        3. Sous-groupe
+- Hiérarchie année
+    - Faites de même pour créer la hiérarchie année :
+        1. Année
+        2. Mois (nom - l'ordre devrait être le bon)
+            
+## Création d'une reporting par département
 
-1. Se connecter à la BD source et au data-mart cible
-```r
-library(DBI)
-cpt = dbConnect(RSQLite::SQLite(), "Comptoir2000.sqlite")
-dm = dbConnect(RSQLite::SQLite(), "datamart.sqlite")
-```
-2. Lister les tables de la source
-```r
-dbListTables(cpt)
-```
-3. Lire le contenu de la table `Messager` de 2 façons
-```r
-dbReadTable(cpt, "Messager")
-dbGetQuery(cpt, "SELECT * FROM Messager;")
-```
-4. D'intégrer une nouvelle table `aaaaa` dans le data-mart
-    1. Création d'un data frame dans R nommé `a`, avec 2 variables
-        - `x`: 1, 2, ..., 5
-        - `y`: "a", "b", ..., "e" 
-    2. Ecriture de ce dataframe dans le DM, dans une table nommée `aaaaa`
-    3. Liste des tables du data-mart (la table doit apparaître)
-    4. Lecture du contenu de cette table
-```r
-a = data.frame(x = 1:5, y = letters[1:5])
-dbWriteTable(dm, "aaaaa", a)
-dbListTables(dm)
-dbReadTable(dm, "aaaaa")
-```
-5. Ajouter une ligne dans la table `Messager`
-    1. Exécution de la requête `INSERT INTO ...`
-    2. Lecture du contenu pour voir la modification
-```r
-dbExecute(cpt, "INSERT INTO Messager (NoMess, NomMess) VALUES (5, 'La Poste')")
-dbReadTable(cpt, "Messager")
-```
-6. Ajouter une nouvelle table dans le data-mart
-    1. Création d'une table `B` avec le formalisme SQL, et 2 attributs
-        - `cle` : clé primaire
-        - `ref` : qui fait référence à l'attribut `x` de `A`
-    2. Population de cette table avec des valeurs
-        - `cle` : 1, 2, ..., 10
-        - `ref` : une valeur entre 1 et 5 aléatoire
-    3. Listing du contenu de cette table
-```r
-dbExecute(dm, "
-CREATE TABLE B (
-  cle INT NOT NULL PRIMARY KEY,
-  ref INT REFERENCES A (x)
-);
-           ")
-for (i in 1:10) {
-  cle = i
-  ref = sample(1:5)[1]
-  requete = paste0("INSERT INTO B VALUES (", cle, ", ", ref, ")")
-  print(requete)
-  dbExecute(dm, requete)
-}
-dbReadTable(dm, "B")
-```
-7. Exécuter une requête type, avec jointure et agrégat
-```r
-dbGetQuery(dm, "
-SELECT x, COUNT(*) AS Nb
-  FROM aaaaa, B
-  WHERE aaaaa.x = B.ref
-  GROUP BY x
-  ORDER BY 2 DESC
-           ")
-```
-8. Se déconnecter des BDs
-```r
-dbDisconnect(cpt)
-dbDisconnect(dm)
-```
+Nous voulons avoir un *tableau de bord* (dans le jargon Tableau) permettant à chaque département de comprendre leur fonctionnement sur la période.
 
-### Travail à faire
+- Dans une nouvelle feuille, glisser-déplacer `Ca` sur l'icône *Texte* (vous devriez voir la somme globale : 140 999 800)
+- Double-cliquer sur `Provenance` (les modalités doivent être visibles en lignes)
+- Double-cliquer sur `Annee` (les années doivent être visibles en mois)
 
-Dans une démarche d'intégration de données (**ETL**), le process classique est le suivant :
+Nous avons donc pour toute l'entreprise la répartition du CA par provenance et par année. Nous voulons ajouter un filtre sur le département. Il nous faut commencer par créer un sélecteur de département.
 
-1. **Extract** : extraire les données du (ou des) SI opérationnel
-1. **Transform** : transformation nécessaire (nettoyage, agrégats, ...)
-1. **Load** : chargement dans le SI décisionnel
+- Faire un clic-droit dans la zone blanche en bas à gauche et cliquer sur *Créer un paramètre...*
+- Donner lui un nom (par exemple `choixDepartement`)
+- Changer le type de données en *Chaîne de caractères*
+- Dans *Valeurs autorisées*, sélectionner *Liste*, puis cliquer sur *Ajouter des valeurs depuis* et choisissez `Departement`
+- Cliquer sur *OK* (il doit apparaître en bas à gauche maintenant)
+- A droite du nom du paramètre, en cliquant sur la flèche, vous pouvez choisir *Afficher le paramètre* (le sélecteur est visible en haut à droite)
 
-Ici, notre SI opérationnel est la base `Comptoir2000`, et au format `SQLite` donc. Pour le SI décisionnel, nous allons aussi utiliser un fichier au format `SQLite`, que l'on nommera `datamart.sqlite` par exemple. La partie *Extract* sera l'importation des tables du SI utilisées dans des data-frames R. Ensuite, pour la partie *Transform*, nous devons créer les data-frames tels qu'ils devront être dans le SID. Enfin, la partie *Load* se fera à base d'ajout de valeur dans les tables du SID, par exemple avec la commande `dbExecute()` et des `INSERT INTO` (avec des boucles). Mais il existe aussi la fonction `dbAppendTable()` qui peut être utile dans ce cas.
+Maintenant que nous avons un paramètre que l'on peut choisir, nous allons l'utiliser comme filtre. Pour cela, nous devons créer un nouveau champs, en se basant sur le sélecteur.
 
-Pour créer le data-mart, contenant les 2 processus vus en cours, vous devez donc faire les étapes suivantes :
+- Refaire un clic-droit dans la zone blanche en bas à gauche, et choisir *Créer un champs calculé...*
+- Nommer le (par exemple `filtreDepartement`)
+- Ecrire la formule suivante : `IF ([Departement] == [choixDepartement]) THEN "OUI" ELSE "NON" END`, puis cliquer sur OK (il doit apparaître dans la liste des attributs à gauche)
+- Le glisser-déplacer dans la case *Filtres* et cocher "OUI", puis cliquer sur OK
 
-1. Créer les tables dans le SID
-1. Importer les tables dans R
-1. Calculer les nouvelles tables
-1. Charger les données dans le SID
+Maintenant, le tableau ne donne les valeurs que pour le département choisi. Modifier le sélecteur pour voir l'impact sur le tableau.
 
+Puisqu'un graphique est bien utile en complément d'un tableau, nous allons montrer visuellement la différence entre les 2 années.
 
-## Création d'un cube et Manipulation sous R
+- Faire un clic-droit sur le nom de la feuille en bas et choisir *Dupliquer*
+- Dans la nouvelle feuille, cliquer à droite de `SOMME (Ca)` sur la petite flêche, et choisir *Ajouter un calcul de table...*
+- Il faut que soit sélectionner (ce sont les choix par défaut)
+    - Type de calcul : *Différence par rapport à*
+    - Calculer au moyen de : *Table (horizontale)*
+    - En rapport avec *Précédent*
+- Fermer la fenêtre de *Calcul de table* (normalement, vous devriez que la colonne 2003 est vide, et la colonne 2004 représente maintenant la différence 2004 - 2003)
+- Faire un clic-droit sur `2003` et choisir *Masquer* pour ne plus la voir
+- Dans le choix des graphiques en haut à droite (cliquer sur *Montre-moi* pour les voir), choisir les barres horizontales (vous devriez maintenant avoir des barres qui vont à droite ou à gauche par rapport à 0)
+- Faire un glisser-déplacer de `Ca` (dans la liste à gauche) sur *Couleur*, et refaire la même manipulation pour le *calcul de table*
 
-A l'heure actuelle, il existe un package permettant la création et la manipulation de cube au sens OLAP dans R, c'est [`hypercube`](https://cran.r-project.org/package=hypercube). Il existe aussi le package [`data.cube`](https://gitlab.com/jangorecki/data.cube), mais qui ne semble plus maintenu. Et nous verrons d'autres outils intéressant sur [`shiny`](https://shiny.rstudio.com/) dans la suite du cours, en particulier [`rpivotTable`](https://github.com/jangorecki/rpivotTable).
+Nous avons maintenant un graphique très clair nous indiquant sur quelles provenances le département a amélioré ou diminué son CA entre les 2 années.
 
-R peut stocker des données dans des tableaux à $n$ dimensions, grâce au type `array` ce qui s'apparente à des hypercubes donc. La librairie `hypercube` surcharge ce type permettant quelques opérations OLAP classiques.
+Nous allons finir ce reporting en ajoutant une courbe d'évolution du CA globale sur les ans, en comparant les années.
 
-### Création d'un cube
+- Créer une nouvelle feuille
+- Double-cliquer sur `Ca`
+- Double-cliquer sur `Mois Numero`
+- Glisser-déplacer `Année` sur *Couleur*
 
-Nous allons utiliser les données `CA`, du premier TP, mais au format R cette fois-ci. Elles sont disponibles sur [ce lien](https://fxjollois.github.io/donnees/ca/ca.RData) (fichier `.RData`). Une fois chargée dans l'espace de travail de R, vous devriez trouver la table `ca_tout`, résultat de la jointure entre toutes les tables du data-mart.
+Nous allons maintenant intégrer ces trois éléments dans un *Tableau de bord*. 
 
-Il est donc possible de créer un cube dans la commande `generateCube()` :
+- Créer un *Tableau de bord*
+- Faire du glisser-déplacer pour placer les trois éléments, ainsi qu'un texte pour mettre un titre
+- Améliorer le rendu en
+    - Modifiant les axes dans les feuilles
+    - Modifiant le titre du sélecteur
+    - Rendant flottant l'affichage des couleurs des années (éventuellement en choissisant d'autres couleurs aussi)
 
-- on se base donc sur un data-frame
-- les colonnes sont la listes des dimensions, avec la possibilité de créer une hiérarchie (ici, `groupe`  et `mois`)
-- les valeurs du cube sont prises à partir d'une variable
+Vous devriez avoir un reporting comme dans [ce fichier](reporting-ca.twbx)
 
-```r
-library(hypercube)
-cub = generateCube(
-  ca_tout, 
-  columns = list(
-    groupe = c("departement", "groupe", "sous_groupe"),
-    mois = c("annee", "mois_numero"),
-    provenance = "provenance"
-  ),
-  valueColumn = "ca"
-)
-```
+### A tester
 
-### Manipulation du cube
+Adapter ce premier reporting pour le faire par sous-groupe.
 
-L'affichage du cube obtenu n'est pas très intéressant directement.
+## Tableau de bord par provenance
 
-#### Sélection 
+Nous allons maintenant créer un tableau de bord plus synthétique, permettant d'analyser la situation pour chaque provenance. Nous voulons avoir un TOP 10 des meilleurs sous-groupes, en utilisant le champs créé précédemment. Si on garde les données brutes, avec la hiérarchie Département, les sous-groupes sont justement rassemblés par groupe et département. Le TOP 10 est impossible à faire proprement dans ce cas. Une façon de faire est de créer une nouvelle variable unique pour chaque sous-groupe.
 
-Pour ne sélectionner qu'une partie du cube, on utilise la fonction `agg.selection()` comme ci-dessous :
+- Dans une nouvelle feuille, créer un filtre sur la provenance, en vous inspirant de ce qu'on a vu précédemment
+- Ajouter ce filtre et l'afficher
+- Créer un nouveau champ (nommé `DptGrpSSGrp` par exemple) qui est la concaténation des variables `Département`, `Groupe` et `Sous-groupe` (en les séparant avec " - " ou " | " par exemple - l'opérateur de concaténation de chaînes est le "+" dans Tableau)
+- Double-cliquer sur le champ créé, puis sur `Ca` ensuite (vous devriez avoir les CAs par sous-groupe)
+- Ajouter la hiérarchie département dans les *Lignes* et la déplier
+- Glisser-déplacer le champ créé dans *Filtres*
+    - Aller dans l'onglet *Premiers*
+    - Sélectionner *Par champ*
+    - Vérifier que vous avez bien les *10* *Premiers* par la *somme* de `Ca`
+- Faire un clic-droit juste au-dessus de la colonne avec les CA et choisir *Trier dans l'ordre décroissant*
 
-```r
-add.selection(
-  cub, 
-  criteria = list(
-    annee = 2004,
-    departement = "Meubles",
-    groupe = "Meubles intérieurs",
-    sous_groupe = as.character(
-      subset(groupe, departement == "Meubles" & groupe == "Meubles intérieurs")$sous_groupe
-    )
-  )
-)
-```
+Nous avons notre TOP 10. Le défaut notoire est la présence de cette variable créée. Avec un peu de formatage (masquage des étiquettes de champs et passage au blanc de la police d'écriture des modalités), celle-ci n'est plus visible.
 
-Ici, nous avons tous les CA pour 2004, pour le département "Meubles", et plus particulièrement le groupe "Meubles intérieurs", pour tous les sous-groupes et toutes les provenances. On voit ici que la notion de hiérarchie n'est pas correctement gérée, puisque nous devons spécifié les sous-groupes à garder (alors que cela devrait être automatique finalement).
+### A tester
 
-Il faut noter qu'on peut ajouter des éléments dans notre sélection, sans avoir besoin de reprendre le cube initial. Toutes les données sont conservées dans le cube résultat. De plus, on peut supprimer une sélection avec la fonction `remove.selection()`.
+- Construire le diagramme en barres représentant le CA total sur la période par département (avec toujours le filtre de provenance)
+    - Barres horizontales
+    - Départements triés par ordre décroissant de CA total
+- Construire le diagramme en barres représentant l'évolution du CA total par mois
+    - 1 barres par mois et par année, dans l'ordre naturel (Janvier 2003, Février 2003...)
+    - Calcul de table : différence par rapport au précédent mois
+- Mettre ses trois graphiques dans un même tableau de bord
 
-#### Aggrégation
+## A faire
 
-Il est aussi possible de résumer le cube selon un ou plusieurs dimensions, en utilisant une fonction d'aggrégat (généralement `sum()`, mais cela peut aussi être `min()`, `max()`, `mean()`, ...). Pour cela, nous utilisons la fonction `add.aggregation()` :
+Créer une vue très synthétique, en mode carte de performance, avec :
 
-
-```r
-add.aggregation(
-  cub,
-  dimensions = c("departement", "mois_numero"),
-  fun = "sum"
-)
-```
-
-Dans l'exemple ci-dessus, nous avons les CA par département et par mois (les deux années cumulées).
-
-Comme pour la sélection, il est possible d'ajouter un agrégat sur le résultat, ou de "revenir en arrière" et donc retrouver les données initiales ou désagrégées, avec la fonction `remove.aggregation()`.
-
-### Travail à faire
-
-1. Créer un cube pour chaque processus, avec les dimensions suivantes (et comme valeur le montant de la vente)
-    - Fait Vente d'un produit : 
-        - Date : Mois, Année
-        - Client : Ville, Pays
-        - Produit : Fournisseur, Catégorie
-        - Employé : Ville, Pays
-    - Fait Commande d'un client :
-        - Date de commande : Mois, Année
-        - Client : Ville, Pays
-        - Employe : Ville, Pays
-1. Essayez de réaliser quelques sélections et aggrégations sur ces 2 cubes
-
+- Evolution complète, sur la période, du chiffre d'affaire
+- Evolution de la répartition par département 
+- Evolution propre de chaque département par rapport au mois de référence "Janvier 2003" (ce qu'on appelle en base 100)
+    - Possible avec calcul de table : *Pourcentage de*, en rapport avec le *Premier*
+- Créer une *histoire* avec ces éléments
+    
 
 
 

@@ -13,9 +13,10 @@
 - [TD Modélisation multidimensionnelle](td1)
 
 - [Intégration des données](https://docs.google.com/presentation/d/e/2PACX-1vSvjB8XvSb5UaHnQKjZO5fHsAYCiaPC6BTgRoSjSvR6MzFiXMNBRsiXSJAaO2HeVZOyPTa65eoHyMrg/pub?start=false&loop=false&delayms=3000)
-- [TP Intégration de données sous R](tp3)
+- [TP Intégration de données sous R](tp2) - [correction](tp2-correction.zip)
 
-- [Reporting & Tableaux de bords]()
+- [Reporting & Tableaux de bords](https://docs.google.com/presentation/d/e/2PACX-1vTXlTT6OTubUDFxqIs-p6cQwfSjDfSekw5mfkeudQilQu7-RC4j4snZe1vUj2Rb1VY3kLztnyKHpTsY/pub?start=false&loop=false&delayms=3000)
+    - [TP Restitution](tp3)
 - [Restitution d'informations](tp4)
 
 ## Développements de TdB & Dataviz web
