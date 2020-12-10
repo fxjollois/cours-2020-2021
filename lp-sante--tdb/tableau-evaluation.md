@@ -1,5 +1,10 @@
 # Tableau - évaluation
 
+Vous devez rendre votre fichier `.twbx` (obtenable en choisissant *Exporter le tableau complet* - ceci permet d'intégrer les données dans le fichier) dans l'espace ci-dessous
+
+<https://cloud.parisdescartes.fr/index.php/s/Jcs9QKFxsnmpTfF>
+
+
 ## A FAIRE
 
 Réaliser les *feuilles* suivantes :
@@ -27,4 +32,5 @@ De plus, réaliser :
     - le contrôle du nombre de pays, sous forme de *radio button* (bouton rond avec sélection unique)
     - le contrôle de l'année, sous forme de *slider*
 - Une *story* regroupant tous ces éléments de manière cohérente
+
 
