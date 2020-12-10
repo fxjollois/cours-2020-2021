@@ -16,8 +16,7 @@
 - [TP Intégration de données sous R](tp2) - [correction](tp2-correction.zip)
 
 - [Reporting & Tableaux de bords](https://docs.google.com/presentation/d/e/2PACX-1vTXlTT6OTubUDFxqIs-p6cQwfSjDfSekw5mfkeudQilQu7-RC4j4snZe1vUj2Rb1VY3kLztnyKHpTsY/pub?start=false&loop=false&delayms=3000)
-    - [TP Restitution](tp3)
-- [Restitution d'informations](tp4)
+- [TP Restitution](tp3)
 
 ## Développements de TdB & Dataviz web
 
