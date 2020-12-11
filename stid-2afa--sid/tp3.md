@@ -102,7 +102,7 @@ Nous allons maintenant créer un tableau de bord plus synthétique, permettant d
 
 - Dans une nouvelle feuille, créer un filtre sur la provenance, en vous inspirant de ce qu'on a vu précédemment
 - Ajouter ce filtre et l'afficher
-- Créer un nouveau champ (nommé `DptGrpSSGrp` par exemple) qui est la concaténation des variables `Département`, `Groupe` et `Sous-groupe` (en les séparant avec " - " ou " | " par exemple - l'opérateur de concaténation de chaînes est le "+" dans Tableau)
+- Créer un nouveau champ (nommé `DptGrpSSGrp` par exemple) qui est la concaténation des variables `Département`, `Groupe` et `Sous-groupe` (en les séparant avec " - " ou " / " par exemple - l'opérateur de concaténation de chaînes est le "+" dans Tableau)
 - Double-cliquer sur le champ créé, puis sur `Ca` ensuite (vous devriez avoir les CAs par sous-groupe)
 - Ajouter la hiérarchie département dans les *Lignes* et la déplier
 - Glisser-déplacer le champ créé dans *Filtres*
