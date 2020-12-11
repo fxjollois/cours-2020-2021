@@ -4,10 +4,11 @@ Vous devez rendre votre fichier `.twbx` (obtenable en choisissant *Exporter le t
 
 <https://cloud.parisdescartes.fr/index.php/s/Jcs9QKFxsnmpTfF>
 
+**ATTENTION** : Indiquer votre **nom** et **prénom** dans le nom du fichier, sinon je ne pourrais pas savoir qui a fait quoi (et vous auriez 0 comme note du coup... )
 
 ## A FAIRE
 
-Réaliser les *feuilles* suivantes :
+A partir du résultat du TP sur Tableau, disponible via [ce fichier](Résultat TP.twbx), réaliser les *feuilles* suivantes :
 
 - Le nuage de points entre le nombre moyen de documents produits par an et le nombre moyen de citations par an, pour chaque pays, avec
     - le nom de chaque pays indiqué sur le graphique
