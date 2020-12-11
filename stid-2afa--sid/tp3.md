@@ -38,7 +38,7 @@ Nous voulons avoir un *tableau de bord* (dans le jargon Tableau) permettant à c
 
 - Dans une nouvelle feuille, glisser-déplacer `Ca` sur l'icône *Texte* (vous devriez voir la somme globale : 140 999 800)
 - Double-cliquer sur `Provenance` (les modalités doivent être visibles en lignes)
-- Double-cliquer sur `Annee` (les années doivent être visibles en mois)
+- Double-cliquer sur `Annee` (les années doivent être visibles en colonnes)
 
 Nous avons donc pour toute l'entreprise la répartition du CA par provenance et par année. Nous voulons ajouter un filtre sur le département. Il nous faut commencer par créer un sélecteur de département.
 
