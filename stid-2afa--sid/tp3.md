@@ -89,7 +89,7 @@ Nous allons maintenant intégrer ces trois éléments dans un *Tableau de bord*.
     - Modifiant le titre du sélecteur
     - Rendant flottant l'affichage des couleurs des années (éventuellement en choissisant d'autres couleurs aussi)
 
-Vous devriez avoir un reporting comme dans [ce fichier](reporting-ca.twbx)
+Vous devriez avoir un reporting comme dans [ce fichier](ca-reporting.twbx)
 
 ### A tester
 
@@ -111,6 +111,8 @@ Nous allons maintenant créer un tableau de bord plus synthétique, permettant d
 - Faire un clic-droit juste au-dessus de la colonne avec les CA et choisir *Trier dans l'ordre décroissant*
 
 Nous avons notre TOP 10. Le défaut notoire est la présence de cette variable créée. Avec un peu de formatage (masquage des étiquettes de champs et passage au blanc de la police d'écriture des modalités), celle-ci n'est plus visible.
+
+Vous devriez avoir un reporting comme dans [ce fichier](ca-tdb.twbx)
 
 ### A tester
 
