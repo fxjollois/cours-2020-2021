@@ -2,7 +2,7 @@
 
 Nous allons utiliser la base [ca_tout.mdb](ca_tout.mdb) (à télécharger donc) dans l'outil **Tableau**.
 
-## Connecion de la base dans Tableau
+## Connexion de la base dans Tableau
 
 - Sélectionner 'Microsoft Access' et aller choisir le fichier
 - Utiliser la table `tout` (qui est une vue comprenant toutes les informations du datamart)
