@@ -12,6 +12,7 @@ Nous allons utiliser la base [ca_tout.mdb](ca_tout.mdb) (à télécharger donc) 
 
 Avant de faire quoique ce soit, nous allons trier correctement les mois 
 
+- Aller dans une nouvelle feuille
 - Clic-droit sur "Mois", puir "Propriétés par défaut", puis cliquer sur "Trier"
 - Choisir "Manuel"
 - Vérifier que l'ordre est le bon (par défaut, il est ok, car ordre dans la base, mais il est préférable de faire attention)
