@@ -2,9 +2,11 @@
 
 Suite aux étapes précédentes (modélisation puis intégration des données), dans une situation professionnelle, nous devons mettre en place un ou plusieurs tableaux de bords. Nous allons continuer le travail sur le data mart créé la dernière fois, et que vous pouvez récupérer [en cliquant ici](datamart.accdb) (format Access). 
 
-Vous devez rendre votre fichier `.twbx` (obtenable en choisissant *Exporter le tableau complet* - ceci permet d'intégrer les données dans le fichier) dans l'espace ci-dessous
+Vous devez rendre votre fichier `.twbx` (obtenable en choisissant *Exporter le tableau complet* - ceci permet d'intégrer les données dans le fichier) dans l'espace ci-dessous.
 
 <https://cloud.parisdescartes.fr/index.php/s/dGLp73Tnt7bie6a>
+
+**ATTENTION** : Indiquer votre **nom** et **prénom** dans le nom du fichier, sinon je ne pourrais pas savoir qui a fait quoi (et vous auriez 0 comme note du coup... )
 
 ## Travail à faire
 
