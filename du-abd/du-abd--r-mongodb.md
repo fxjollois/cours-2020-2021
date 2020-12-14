@@ -1,4 +1,4 @@
-# "DU ABD - R et NoSQL"
+# DU ABD - R et NoSQL
 
 Dans ce document est l'utilisation du package [`mongolite`](https://jeroen.github.io/mongolite/) permettant la connection à une base de données [MongoDB](https://www.mongodb.com/fr).
 
