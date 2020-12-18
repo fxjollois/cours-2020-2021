@@ -10,18 +10,18 @@ Vous devez rendre votre fichier `.twbx` (obtenable en choisissant *Exporter le t
 
 ## Données
 
-Suite aux étapes précédentes (modélisation puis intégration des données), dans une situation professionnelle, nous devons mettre en place un ou plusieurs tableaux de bords. Nous allons continuer le travail sur le data mart créé la dernière fois, et que vous pouvez récupérer [en cliquant ici](datamart.accdb) (format Access). 
+Suite aux étapes précédentes (modélisation puis intégration des données), dans une situation professionnelle, nous devons mettre en place un ou plusieurs tableaux de bords. Nous allons continuer le travail sur le data mart créé la dernière fois, et que vous pouvez récupérer au[format ACCESS](datamart.accdb) ou au [format EXCEL](datamart_tables.xlsx) (jointures possibles entre table avec Excel). 
 
-Dans cette base, nous avons aussi programmer 2 vues :
+Dans cette base ACCESS, nous avons aussi programmer 2 vues :
 
-- `FaitVente Requête`
-- `FaitCommande Requête`
+- `FaitVente Requête` ([données au format Excel](FaitVente_Requête.xlsx) si besoin)
+- `FaitCommande Requête` ([données au format Excel](FaitCommande_Requête.xlsx) si besoin)
 
 Celles-ci regroupent en plus de la table de faits toutes les informations des dimensions associées à celle-ci. Vous devrez donc idéalement utiliser ces vues directement.
 
 ## Travail à faire
 
-Vous devez réaliser un tableau de bord avec plusieurs parties, à organiser comme bon vou ssemble
+Vous devez réaliser un tableau de bord avec plusieurs parties, à organiser comme bon vous semble
 
 - **Global** : basée sur le chiffre d'affaires 
   - Graphique : évolution du CA sur toute la période (avec indication des années)
