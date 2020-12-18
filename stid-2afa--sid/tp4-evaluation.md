@@ -38,3 +38,6 @@ Vous devez réaliser un tableau de bord avec plusieurs parties, à organiser com
   - Un clic sur un des fournisseurs permet la aussi d'avoir l'évolution
   - On doit aussi pouvoir avoir le détail par produit (CA total et évolution - format aussi à réfléchir)
 
+Veuillez aussi intégrer un petit explicatif de vos choix et du fonctionnement du tableau de bord, comme vous le souhaitez (sur chaque partie, à part... ).
+
+
