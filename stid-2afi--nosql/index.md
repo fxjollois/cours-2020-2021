@@ -27,6 +27,8 @@
 
 A faire pour pouvoir utiliser l'outil sur votre ordinateur :
 
+### Windows
+
 - Installer [MongoDB](https://www.mongodb.com/try/download/community) en version Community (gratuite)
     - l'outil n'est pas très gourmand en espace normalement
 - Installer l'outil [Compass](https://www.mongodb.com/try/download/compass)
@@ -34,3 +36,14 @@ A faire pour pouvoir utiliser l'outil sur votre ordinateur :
 - Installer le [shell](https://www.mongodb.com/try/download/shell)
     - c'est un zip à décompresser
     - vous pouvez placer l'exécutable ou vous le souhaitez (dans le répertoire de ce cours par exemple)
+
+### Mac
+
+- Installer [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) en version Community (gratuite)
+    - vous devez suivre les opérations
+    - pensez à lancer le service (comme indiqué à la fin)
+    - l'outil n'est pas très gourmand en espace normalement
+- Installer l'outil [Compass](https://www.mongodb.com/try/download/compass)
+    - idem, assez petit
+- Pour accéder au shell, vous devez lancer un terminal de commande et taper `mongo` pour l'obtenir 
+
