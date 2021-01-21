@@ -485,5 +485,5 @@ Dans l'exemple ci-après, création d'un diagramme en barres représentant le pr
 | Private room    |   5827 |         56 |
 | Shared room     |    464 |         40 |
 
----
-<iframe style="width: 100%; height: 600px" src="https://embed.plnkr.co/dAITTEWo4EJmYZnQjGVv" frameborder="0"></iframe>
+> <a href="https://plnkr.co/edit/dAITTEWo4EJmYZnQjGVv?preview" target="_blank">Cliquer ici</a> pour accéder à l'exemple
+  

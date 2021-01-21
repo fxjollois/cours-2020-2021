@@ -277,7 +277,7 @@ Dans l'exemple ci-dessous, nous utilisons l'ensemble des éléments vu ci-dessou
 
 Le code est commenté pour expliquer ce que chaque partie permet de réaliser dans le graphique.
 
-<iframe style="width: 100%; height: 600px" src="https://embed.plnkr.co/dAITTEWo4EJmYZnQjGVv" frameborder="0"></iframe>
+> <a href="https://plnkr.co/edit/dAITTEWo4EJmYZnQjGVv?preview" target="_blank">Cliquer ici</a> pour accéder à l'exemple
 
 ## A réaliser 
 
