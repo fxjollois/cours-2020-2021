@@ -20,6 +20,10 @@
 
 ## Développements de TdB & Dataviz web
 
-- [Librairie d3js](tp5-d3js)
+- [Web statique : HTML, CSS, SVG](web-statique)
+- [Web dynamique : JS](web-dynamique)
+- [TP JS](tp5-js)
+
+- [Librairie d3js](tp6-d3js)
 - [Librairie leaflet.js]()
 - [TP]()
