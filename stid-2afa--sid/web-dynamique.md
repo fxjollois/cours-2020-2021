@@ -227,6 +227,12 @@ Quelques fonctions utiles de `document` ou des éléments du DOM :
 
 ## Exemple 
 
+Dans cet exemple, on réalise les étapes suivantes :
+
+- Sélection d'une div créée, mais vide, identifiée par un nom
+- Modification du contenu HTML de cette div
+- Modification du style (texte écrit en rouge)
+
 ### Résultat
 
 <div id="exjs">
