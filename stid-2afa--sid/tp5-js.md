@@ -19,7 +19,7 @@ Nous allons partir d'une base de travail disponible sur ce [lien vers Plnkr](htt
 - Gérer les multiples clics (par exemple en supprimant ce qui a été fait avant)
 - ...
 
-### Troisièle script
+### Troisième script
 
 Créer un script (dans `script3.js`) permettant de faire un diagramme avec les contraintes suivantes :
 
