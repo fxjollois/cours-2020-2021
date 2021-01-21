@@ -174,21 +174,25 @@ Pour avoir une idée de ce qu'est le DOM :
 On peut appliquer certains paramètres aux balises, permettant de les identifier (via un nom unique ou via une classe) ou de leur appliquer directement un style.
 
 - Appliquer un style `CSS` spécifique (cf plus bas) à l'élément
+
 ```html
 <balise style = "code CSS">
 ```
 
 - Déterminer la largeur et la hauteur de l'élément (`valeur` relative ou absolue)
+
 ```html
 <balise width = "valeur" height = "valeur">
 ```
 
 - Définir la ou les classes de l'élément (utile en `CSS` ou en `JS`)
+
 ```html
 <balise class = "classe(s)">
 ```
 
 - Donner un identifiant (qui doit être unique dans la page - sinon risque de confusion) à l'élément (idem, utile en `CSS` et en `JS`)
+
 ```html
 <balise id = "identifiant">
 ```
