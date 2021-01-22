@@ -49,7 +49,7 @@ let temp;           // durée de vie = bloc en cours
 
 - Déclarée mais sans valeur : `undefined`
 - Nul : `null` 
-- Booléen :`true`|`false`
+- Booléen :`true` et `false`
 - Numérique : pour les entiers et réels
 - Chaîne de caractère : définie avec `"chaîne"` ou `'chaîne'`
 - Tableau : sans contrainte de type (mélange possible)
