@@ -8,8 +8,17 @@ On peut interroger une base de données de ce type via le package `mongolite` da
 
 ```{r}
 library(mongolite)
-m = mongo(db = "du_abd",
-          collection = "restaurants")
+USER = "user"
+PASS = "user"
+HOST = "cluster0.ougec.mongodb.net"
+
+# Using plain-text
+URI = sprintf("mongodb+srv://%s:%s@%s/", USER, PASS, HOST)
+
+m = mongo(
+  collection = "restaurants", 
+  db = "test", 
+  url = URI)
 ```
 
 Le premier document est présenté ci-dessous. La base contient les informations de plus de 25000 restaurants new-yorkais (base de test fournie par [Mongo](https://docs.mongodb.com/getting-started/shell/import-data/)).
