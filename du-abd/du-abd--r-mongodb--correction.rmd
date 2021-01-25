@@ -1,0 +1,142 @@
+---
+title: "TP Mongo - correction"
+author: "DU ABD"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(mongolite)
+library(tidyverse)
+library(leaflet)
+```
+
+## Créer la connexion à la collection dans R
+
+```{r}
+USER = "user"
+PASS = "user"
+HOST = "cluster0.ougec.mongodb.net"
+URI = sprintf("mongodb+srv://%s:%s@%s/", USER, PASS, HOST)
+
+data = mongo(
+  collection = "listingsAndReviews",
+  db = "sample_airbnb",
+  url = URI
+)
+```
+
+## Donner le nombre de logements
+
+```{r}
+data$count()
+```
+
+## Lister les informations du logement "10545725" (cf _id)
+
+```{r}
+data$find(query = '{"_id": "10545725"}')
+```
+
+## Lister les différentes types de logements possibles cf (room_type)
+
+```{r}
+data$distinct("room_type")
+```
+
+## Donner le nombre de logements par type 
+
+```{r}
+data$aggregate(
+'[
+  { "$group": { "_id": "$room_type", "nb": { "$sum": 1 }}}
+]')
+```
+
+
+## Représenter graphiquement la distribution des prix 
+
+```{r}
+df = data$find(fields = '{ "_id": 0, "price": 1 }')
+ggplot(df, aes(price)) +
+  geom_histogram() +
+  scale_y_log10()
+```
+
+## Croiser numériquement et graphiquement le type et le prix (price)
+
+```{r}
+data$aggregate(
+'[
+  { "$group": { "_id": "$room_type", "prix_moyen": { "$avg": "$price" }}}
+]')
+df = data$find(fields = '{ "_id": 0, "price": 1, "room_type": 1 }')
+ggplot(df, aes(room_type, price, fill = room_type)) +
+  geom_boxplot() +
+  scale_y_log10()
+```
+
+## Représenter la distribution du nombre d'avis
+
+```{r}
+df = data$aggregate(
+'[
+  { "$project": { "nb_avis": { "$size": "$reviews" }}}
+]'
+)
+ggplot(df, aes(nb_avis)) +
+  geom_histogram()
+```
+
+## Croiser graphiquement le nombre d'avis et le prix, en ajoutant l'information du type de logement
+
+```{r}
+df = data$aggregate(
+'[
+  { "$project": { "price": 1, "room_type": 1, "nb_avis": { "$size": "$reviews" }}}
+]'
+)
+ggplot(df, aes(nb_avis, price, color = room_type)) +
+  geom_point() +
+  scale_y_log10() +
+  facet_wrap(~ room_type)
+```
+
+## Représenter les logements sur une carte, avec une couleur en fonction du type
+
+```{r}
+df = data$aggregate(
+  '[
+    { "$project": { 
+      "room_type": 1,
+      "lng": { "$arrayElemAt": [ "$address.location.coordinates", 0 ] },
+      "lat": { "$arrayElemAt": [ "$address.location.coordinates", 1 ] }
+    }}
+  ]'
+)
+leaflet(df) %>%
+  addTiles() %>%
+  addCircles(lng = ~lng, lat = ~lat)
+```
+
+## Refaire la carte, avec les crtières suivant :
+#     - Une carte par type de logement
+#     - Couleur en fonction du prix du logement
+#     - Taille en fonction du nombre d'avis déposé
+
+
+```{r}
+df = data$aggregate(
+  '[
+    { "$project": { 
+      "room_type": 1, "price": 1,
+      "lng": { "$arrayElemAt": [ "$address.location.coordinates", 0 ] },
+      "lat": { "$arrayElemAt": [ "$address.location.coordinates", 1 ] }
+    }}
+  ]'
+)
+leaflet(df) %>%
+  addTiles() %>%
+  addCircles(lng = ~lng, lat = ~lat)
+```
