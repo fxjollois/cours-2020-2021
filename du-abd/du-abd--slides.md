@@ -6,7 +6,7 @@ class: middle, center, inverse, title
 
 ---
 
-# NoSQL
+## NoSQL
 
 **MongoDB** est une base de données NoSQL distribué de type *Document Store* ([site web](http://www.mongodb.com/)) 
 
@@ -18,7 +18,7 @@ Objectifs :
 
 ---
 
-# Modèle des données
+## Modèle des données
 
 Principe de base : les données sont des `documents`
 
@@ -35,7 +35,7 @@ Principe de base : les données sont des `documents`
 
 ---
 
-# Point sur `JSON`
+## Point sur `JSON`
 
 - `JavaScript Object Notation`, créé en 2005
 - Format léger d'échange de données structurées (**littéral**)
@@ -53,7 +53,7 @@ Validation possible du JSON sur [jsonlint.com/](http://jsonlint.com/)
 
 ---
 
-### Exemple
+### Exemple de `JSON`
 
 ```json
 {
@@ -84,9 +84,10 @@ Validation possible du JSON sur [jsonlint.com/](http://jsonlint.com/)
     "restaurant_id": "30112340"
 }
 ```
+
 ---
 
-# Compléments
+## Compléments
 
 `BSON` : extension de `JSON`
 
@@ -102,7 +103,7 @@ Validation possible du JSON sur [jsonlint.com/](http://jsonlint.com/)
 
 ---
 
-# Langage d'interrogation
+## Langage d'interrogation
 
 - Pas de SQL (bien évidemment), ni de langage proche
 - Définition d'un langage propre
@@ -116,7 +117,7 @@ Validation possible du JSON sur [jsonlint.com/](http://jsonlint.com/)
 
 ---
 
-# Utilisation avec `R`
+## Utilisation avec `R`
 
 Package [`mongolite`](https://jeroen.github.io/mongolite/) dans `R`
 
@@ -126,7 +127,7 @@ Package [`mongolite`](https://jeroen.github.io/mongolite/) dans `R`
 1. Envoi des commandes via le connecteur : `m$fonction()`
 1. Suppression de la connexion
 
-```{r}
+```r
 library(mongolite)
 m = mongo(db = "nom_base", collection = "nom_collection", url = "url_connexion")
 m$find(...)
@@ -136,7 +137,7 @@ m$disconnect()
 
 ---
 
-# Point d'attention
+## Point d'attention
 
 Dans la suite, nous verrons que les instructions passées à Mongo en paramètre dans fonctions R sont écrites dans des chaînes de caractères 
 
@@ -151,7 +152,7 @@ Dans la suite, nous verrons que les instructions passées à Mongo en paramètre
 
 ---
 
-# Fonctions principales
+## Fonctions principales
 
 Voici les principales fonctions dont nous aurons besoin (récupération de données)
 
@@ -167,7 +168,7 @@ Il y a bien évidemment d'autres fonctions dédiés à la gestion des bases et d
 
 ---
 
-# Sélection de documents
+## Sélection de documents
 
 Pour sélectionner les documents, nous allons utiliser le paramètre `query` dans les fonctions précédentes (toutes sauf `aggregate()`)
 
@@ -181,7 +182,7 @@ Pour sélectionner les documents, nous allons utiliser le paramètre `query` dan
     
 ---
 
-# Sélection de champs à afficher ou non
+## Sélection de champs à afficher ou non
 
 Dans la fonction `find()` (ainsi que `iterate()`), pour choisir les champs à afficher, nous utilisons le paramètre `fields`
 
@@ -193,7 +194,7 @@ Dans la fonction `find()` (ainsi que `iterate()`), pour choisir les champs à af
 
 ---
 
-# Tri
+## Tri et limite
 
 Toujours dans les fonctions `find()` et `iterate()`, il est possible de faire le tri des documents, avec le paramètre `sort`
 
@@ -201,31 +202,32 @@ Toujours dans les fonctions `find()` et `iterate()`, il est possible de faire le
 - `'{ "champs": -1 }'` : tri décroissant
 - plusieurs critères de tri possibles (dans les 2 sens)
 
-# Limite
-
 Dans ces fonctions, on peut aussi limiter l'exploration à une partie, avec les paramètres suivant :
 
-- `limit` : restraint le nombre de résultats fournis
+- `limit` : restreint le nombre de résultats fournis
 - `skip` : ne considère pas les *n* premiers documents
-
---- 
-
-# Aggrégation
-
-Cette fonction va prendre en paramètre un `pipeline` : tableau composé d'une suite d'opérations
-
-- `$limit` : restriction à un petit nombre de documents (très utiles pour tester son calcul)
-- `$project` : redéfinition des documents
-- `$match` : restriction sur les documents à utiliser
-- `$group` : regroupements et calculs d'aggégrats
-- `$sort` : tri sur les documents
-- `$unwind` : séparation d'un document en plusieurs sur la base d'un tableau
-- `$lookup` : jointure avec une autre collection
-- ...
 
 ---
 
-# Syntaxe des opérations dans le `pipeline`
+## Aggrégation
+
+Cette fonction va prendre en paramètre un `pipeline` : tableau composé d'une suite d'opérations
+
+| Fonction     | Opération |
+|-|-|
+| `$limit`     | restriction à un petit nombre de documents (très utiles pour tester son calcul) |
+| `$sort`      | tri sur les documents |
+| `$match`     | restriction sur les documents à utiliser |
+| `$unwind`    | séparation d'un document en plusieurs sur la base d'un tableau |
+| `$addFields` | ajout d'un champs dans les documents |
+| `$project`   | redéfinition des documents |
+| `$group`     | regroupements et calculs d'aggégrats |
+| `$lookup`    | jointure avec une autre collection |
+| ...          | |
+
+---
+
+## Syntaxe des opérations dans le `pipeline`
 
 Les opérations se font dans l'ordre d'écriture, et le même opérateur peut donc apparaître plusieurs fois
 
@@ -237,7 +239,7 @@ Les opérations se font dans l'ordre d'écriture, et le même opérateur peut do
 
 ---
 
-# Syntaxe des opérations dans le `pipeline`
+## Syntaxe des opérations dans le `pipeline`
 
 `$project` : redéfinition des documents
 
@@ -247,7 +249,7 @@ Les opérations se font dans l'ordre d'écriture, et le même opérateur peut do
     
 Quelques opérateurs utiles pour la projection (plus d'info [ici](https://docs.mongodb.com/manual/reference/operator/aggregation/))
 
-- `$$arrayElemAt` : élément d'un tableau
+- `$arrayElemAt` : élément d'un tableau
 - `$first` et `$last` : premier ou dernier élément du tableau
 - `$size` : taille d'un tableau
 - `$substr` : sous-chaîne de caractères
@@ -256,15 +258,24 @@ Quelques opérateurs utiles pour la projection (plus d'info [ici](https://docs.m
 
 ---
 
-# Syntaxe des opérations dans le `pipeline`
+## Syntaxe des opérations dans le `pipeline`
 
 `$group` : calcul d'agrégats
 
+- `_id` : déclaration du critère de regroupement
+    - chaîne de caractères : pas de regroupement (tous les documents)
+    - `$champs` : regroupement selon ce champs
+    - `"{ "a1": "$champs1", ... }"` : regroupement multiple (avec modification des valeurs possible)
+- Calculs d'agrégats à faire :
+    - `$sum` : somme (soit de valeur fixe - 1 pour faire un décompte donc, soit d'un champs spécifique)
+    - `$avg, $min", $max`
+    - `$addToSet` : regroupement des valeurs distinctes d'un champs dans un tableau 
+    - `$push` : aggrégation de champs dans un tableau
 
 
 ---
 
-# Si calcul non faisable par Mongo
+## Si calcul non faisable par Mongo
 
 (ou résultat trop lourd pour le faire passer en une fois dans le réseau)
 
