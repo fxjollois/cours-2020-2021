@@ -1,29 +1,29 @@
-# DU ABD - R et NoSQL
+# R et MongoDB - Utilisation avec `R`
 
-Dans ce document est l'utilisation du package [`mongolite`](https://jeroen.github.io/mongolite/) permettant la connection à une base de données [MongoDB](https://www.mongodb.com/fr).
+Dans ce document, nous utilisons le package [`mongolite`](https://jeroen.github.io/mongolite/), permettant la connection à une base de données [MongoDB](https://www.mongodb.com/fr). Il fait suite à [l'introduction à MongoDB](du-abd--slides.html)
 
-## Utilisation avec `R`
+Le but de ce document est donc de montré les exemples d'utilisation des différentes commandes permettant la récupération de données sur le serveur.
 
-On peut interroger une base de données de ce type via le package `mongolite` dans `R`. Dans la suite, nous allons nous connecter sur un serveur distant, et travailler pour l'exemple sur une base des restaurants New-Yorkais.
+## Exemples sur `restaurants`
 
-```{r}
+Ici, nous allons nous connecter sur un serveur distant, et travailler sur une base des restaurants New-Yorkais.
+
+```r
 library(mongolite)
 USER = "user"
 PASS = "user"
 HOST = "cluster0.ougec.mongodb.net"
-
-# Using plain-text
 URI = sprintf("mongodb+srv://%s:%s@%s/", USER, PASS, HOST)
 
 m = mongo(
   collection = "restaurants", 
-  db = "test", 
+  db = "sample_restaurants", 
   url = URI)
 ```
 
 Le premier document est présenté ci-dessous. La base contient les informations de plus de 25000 restaurants new-yorkais (base de test fournie par [Mongo](https://docs.mongodb.com/getting-started/shell/import-data/)).
 
-```
+```json
 {
         "_id" : ObjectId("58ac16d1a251358ee4ee87de"),
         "address" : {
@@ -68,7 +68,7 @@ Le premier document est présenté ci-dessous. La base contient les informations
 
 `R` ne gérant pas nativement les données `JSON`, les documents sont traduits, pour la librairie `mongolite`, en `data.frame`. Pour récupérer le premier document, nous utilisons la fonction `find()` de l'objet créé `m`.
 
-```{r}
+```r
 d = m$find(limit = 1)
 d
 class(d)
@@ -76,66 +76,410 @@ class(d)
 
 Les objets `address` et `grades` sont particuliers, comme on peut le voir dans le `JSON`. Le premier est une liste, et le deuxième est un tableau. Voila leur classe en `R`.
 
-```{r}
+```r
 class(d$address)
 d$address
 class(d$grades)
 d$grades
 ```
 
-On peut aussi voir la liste des valeurs distinctes d'un attribut, avec la fonction `distinct()`.
+### Dénombrement
 
-```{r}
-m$distinct("borough")
+Comme indiqué, on utilise la fonction `count()` pour dénombrer les documents :
+
+- Tous les restaurants
+
+```r
+m$count()
 ```
 
+- Restaurants de *Brooklyn*
+
+```r
+m$count(query = '{ "borough": "Brooklyn" }')
+```
+
+- Restaurants de *Brooklyn* proposant de la cuisine française
+
+```r
+m$count(query = '{ "borough": "Brooklyn", "cuisine": "French" }')
+```
+
+- Restaurants de *Brooklyn* proposant de la cuisine française ou italienne
+
+```r
+m$count(query = '{ "borough": "Brooklyn", "cuisine": { "$in": ["French", "Italian"]} }')
+```
+
+- Idem mais écrit plus lisiblement
+
+```r
+m$count(
+  query = '{ 
+    "borough": "Brooklyn", 
+    "cuisine": { "$in": ["French", "Italian"]}
+  }'
+)
+```
+
+- Restaurants situés sur *Franklin Street*
+    - Notez l'accès au champs `street` du champs `address`
+
+```r
+m$count(
+  query = '{ 
+    "address.street": "Franklin Street"
+  }'
+)
+```
+
+
+- Restaurants ayant eu un score de 0
+
+```r
+m$count(
+  query = '{ 
+    "grades.score": 0
+  }'
+)
+```
+
+- Restaurants ayant eu un score inférieur à 5
+
+```r
+m$count(
+  query = '{ 
+    "grades.score": { "$lte": 5 }
+  }'
+)
+```
+
+
+### Valeurs distinctes
+
+On peut aussi voir la liste des valeurs distinctes d'un attribut, avec la fonction `distinct()`.
+
+- Quartier (`borough`), pour tous les restaurants
+
+```r
+m$distinct(key = "borough")
+```
+
+- Cuisine pour les restaurants de *Brooklyn*
+
+```r
+m$distinct(
+  key = "cuisine",
+  query = '{ "borough": "Brooklyn" }'
+)
+```
+
+- Grade des restaurants de *Brooklyn*
+
+```r
+m$distinct(
+  key = "grades.grade",
+  query = '{ "borough": "Brooklyn" }'
+)
+```
 
 ### Restriction et Projection
 
-La fonction `find()` de l'objet `m` permet de retourner tous les documents. On peut se limiter à un certain nombre de documents avec l'option `limit`, comme précédemment. 
+La fonction `find()` de l'objet `m` permet donc de réaliser les *restrictions* et *projections*.
 
-Pour faire une *restriction* sur la valeur d'un attribut, il faut utiliser l'option `query`, avec un formalisme particulier. Il faut écrire au format `JSON` dans une chaîne, avec pour les champs à comparer leur nom suivi de la valeur (pour l'égalité) ou d'un objet complexe pour les autres tests (infériorité, supériorité, présence dans une liste).
+- Restaurants *Shake Shack* (uniquement les attributs `"street"` et `"borough"`)
 
-Pour une *projection*, c'est l'option `fields` à renseigner. On écrit au format `JSON`, avec la valeur `1` pour les champs qu'on souhaite avoir en retour. Par défaut, l'identifiant (`_id`) est toujours présent, mais on peut le supprimer en indiquant `0`.
-
-Dans cet exemple, on recherche le document dont l'attribut `"name"` est égal à `"Shake Shack"`, et on affiche uniquement les attributs `"street"` et `"borough"`. Dans la deuxième expression, on supprime l'affichage de l'identifiant interne à *MongoDB*.
-
-```{r}
-m$find(query = '{"name": "Shake Shack"}', 
-       fields = '{"address.street": 1, "borough": 1}')
-m$find(query = '{"name": "Shake Shack"}', 
-       fields = '{"_id": 0, "address.street": 1, "borough": 1}')
+```r
+m$find(query = '{ "name": "Shake Shack" }', 
+       fields = '{ "address.street": 1, "borough": 1 }')
 ```
 
-Ici, on recherche les 10 premiers restaurants du quartier *Queens*, avec une note A et un score supérieure à . Et on affiche le nom et la rue du restaurant. Remarquez l'affichage des scores.
+- Idem sans l'identifiant interne
 
-```{r}
+```r
+m$find(query = '{ "name": "Shake Shack" }', 
+       fields = '{ "_id": 0, "address.street": 1, "borough": 1 }')
+```
+
+- 10 premiers restaurants du quartier *Queens*, avec une note A et un score supérieur à 50 (on affiche le nom et la rue du restaurant
+    - Remarquez l'affichage des scores dans `R`.
+
+```r
 m$find(query = '{"borough": "Queens", "grades.score": { "$gte":  50}}',
        fields = '{"_id": 0, "name": 1, "grades.score": 1, "address.street": 1}',
        limit = 10)
 ```
 
-On veut chercher les restaurants *Shake Shack* dans différents quartiers (*Queens* et *Brooklyn*).
+- Restaurants *Shake Shack* dans différents quartiers (*Queens* et *Brooklyn*)
 
-```{r}
+```r
 m$find(query = '{"name": "Shake Shack", "borough": {"$in": ["Queens", "Brooklyn"]}}', 
        fields = '{"_id": 0, "address.street": 1, "borough": 1}')
 ```
 
-Il est aussi posible de trier les documents retournés, via l'option `sort`. Toujours en `JSON`, on indique `1` pour un tri croissant et `-1` pour un tri décroissant.
+- Restaurants du Queens ayant une note supérieure à 50, mais trié par ordre décroissant de noms de rue, et ordre croissant de noms de restaurants
 
-```{r}
-m$find(query = '{"borough": "Queens", "grades.score": { "$gte":  50}}',
+```r
+m$find(query = '{"borough": "Queens", "grades.score": { "$gt":  50}}',
        fields = '{"_id": 0, "name": 1, "address.street": 1}',
-       sort = '{"address.street": -1, "name": 1}',
-       limit = 10)
+       sort = '{"address.street": -1, "name": 1}')
 ```
 
-#### Itération
+### Agrégat
+
+Ils sont réalisés avec la fonction `aggregate()`, qui permet de faire beaucoup plus.
+
+- Limite aux 5 premiers restaurants
+
+```r
+m$aggregate(pipeline = '[
+    {"$limit": 10 }
+]')
+```
+
+- Idem avec tri sur le nom du restaurant
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$sort": { "name": 1 }}
+]')
+```
+
+- Idem en se restreignant à *Brooklyn*
+    - Notez que nous obtenons uniquement 5 restaurants au final
+    
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$sort": { "name": 1 }},
+    { "$match": { "borough": "Brooklyn" }}
+]')
+```
+
+- Mêmes opérations mais avec la restriction en amont de la limite
+    - Nous avons ici les 10 premiers restaurants de *Brooklyn* donc
+
+```r
+m$aggregate(pipeline = '[
+    { "$match": { "borough": "Brooklyn" }},
+    { "$limit": 10 },
+    { "$sort": { "name": 1 }}
+]')
+```
+
+- Séparation des 5 premiers restaurants sur la base des évaluations (`grades`)
+    - Chaque ligne correspond maintenant a une évaluation pour un restaurant
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$unwind": "$grades" }
+]')
+```
+
+- Idem précédemment, en se restreignant à celle ayant eu *B*
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$unwind": "$grades" },
+    { "$match": { "grades.grade": "B" }}
+]')
+```
+
+- Si on inverse les opérations `$unwind` et `$match`, le résultat est clairement différent
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$match": { "grades.grade": "B" }},
+    { "$unwind": "$grades" }
+]')
+```
+
+- On souhaite ici ne garder que le nom et le quartier des 10 premiers restaurants
+    - Notez l'ordre (alphabétique) des variables, et pas celui de la déclaration
+    
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "name": 1, "borough": 1 } }
+]')
+```
+
+- Ici, on supprime l'adresse et les évaluations 
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "address": 0, "grades": 0 } }
+]')
+```
+
+- En plus du nom et du quartier, on récupère l'adresse mais dans un nouveau champs 
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "name": 1, "borough": 1 , "street": "$address.street"} }
+]')
+```
+
+- On ajoute le nombre de visites pour chaque restaurant (donc la taille du tableau `grades`)
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "name": 1, "borough": 1, "nb_grades": { "$size": "$grades" } } }
+]')
+```
+
+- On trie ce résultat par nombre de visites, et on affiche les 10 premiers
+    - Notez qu'il y a des restaurants sans visite donc (pour lesquels `grades` est préent mais égal à `NULL`)
+    - Dans l'idéal, ces restaurants ne devraient pas avoir de champs `grades`
+
+```r
+m$aggregate(pipeline = '[
+    { "$project": { "name": 1, "borough": 1, "nb_grades": { "$size": "$grades" } } },
+    { "$sort": { "nb_grades": 1 }},
+    { "$limit": 10 }
+]')
+```
+
+- On ne garde maintenant que le premier élément du tableau `grades` (indicé 0)
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "name": 1, "borough": 1, "grade": { "$arrayElemAt": [ "$grades", 0 ]} } }
+]')
+```
+
+- On peut aussi faire des opérations sur les chaînes, tel que la mise en majuscule du nom
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { "nom": { "$toUpper": "$name" }, "borough": 1 } }
+]')
+```
+
+- On peut aussi vouloir ajouter un champs, comme ici le nombre d'évaluations
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$addFields": { "nb_grades": { "$size": "$grades" } } }
+]')
+```
+
+- On extrait ici les trois premières lettres du quartier
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$project": { 
+        "nom": { "$toUpper": "$name" }, 
+        "quartier": { "$substr": [ "$borough", 0, 3 ] } 
+    } }
+]')
+```
+
+- On fait de même, mais on met en majuscule et on note *BRX* pour le *Bronx*
+    - on garde le quartier d'origine pour vérification ici
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$addFields": { "quartier": { "$toUpper": { "$substr": [ "$borough", 0, 3 ] } } }},
+    { "$project": { 
+        "nom": { "$toUpper": "$name" }, 
+        "quartier": { "$cond": { "if": { "$eq": ["$borough", "Bronx"] }, "then": "BRX", "else": "$quartier" } },
+        "borough": 1
+    } }
+]')
+```
+
+- On calcule ici le nombre total de restaurants
+
+```r
+m$aggregate(pipeline = '[
+    {"$group": {"_id": "Total", "NbRestos": {"$sum": 1}}}
+]')
+```
+
+- On fait de même, mais par quartier
+
+```r
+m$aggregate(pipeline = '[
+    {"$group": {"_id": "$borough", "NbRestos": {"$sum": 1}}}
+]')
+```
+
+- Pour faire le calcul des notes moyennes des restaurants du *Queens*, on exécute le code suivant
+
+```r
+m$aggregate('[
+    { "$match": { "borough": "Queens" }},
+    { "$unwind": "$grades" },
+    { "$group": { "_id": "null", "score": { "$avg": "$grades.score" }}}
+]')
+```
+
+-  Il est bien évidemment possible de faire ce calcul par quartier et de les trier selon les notes obtenues (dans l'ordre décroissant)
+
+```r
+m$aggregate('[
+    { "$unwind": "$grades" },
+    { "$group": { "_id": "$borough", "score": { "$avg": "$grades.score" }}},
+    { "$sort": { "score": -1 }}
+]')
+```
+
+- On peut aussi faire un regroupement par quartier et par rue (en ne prenant que la première évaluation - qui est la dernière en date a priori), pour afficher les 10 rues où on mange le plus sainement
+    - Notez que le premier `$match` permet de supprimer les restaurants sans évaluations (ce qui engendrerait des moyennes = `NA`)
+
+```r
+m$aggregate(pipeline = '[
+    { "$project": { 
+        "borough": 1, "street": "$address.street", 
+        "eval": { "$arrayElemAt": [ "$grades", 0 ]} 
+    } },
+    { "$match": { "eval": { "$exists": true } } },
+    { "$match": { "eval.score": { "$gte": 0 } } },
+    { "$group": { 
+        "_id": { "quartier": "$borough", "rue": "$street" }, 
+        "score": { "$avg": "$eval.score" }
+    }},
+    { "$sort": { "score": 1 }},
+    { "$limit": 10 }
+]')
+```
+
+- Pour comprendre la différence entre `$addToSet` et `$push`, on les applique sur les grades obtenus pour les 10 premiers restaurants
+    - `$addToSet` : valeurs distinctes
+    - `$push` : toutes les valeurs présentes
+
+```r
+m$aggregate(pipeline = '[
+    { "$limit": 10 },
+    { "$unwind": "$grades" },
+    { "$group": { 
+        "_id": "$name", 
+        "avec_addToSet": { "$addToSet": "$grades.grade" },
+        "avec_push": { "$push": "$grades.grade" }
+    }}
+]')
+```
+
+### Itération
 
 Il est possible de définir un curseur (de même type que PL/SQL par exemple), qui va itérer sur la liste de résultats (celle-ci sera stocké sur le serveur). Cela permet de récupérer les documents un par un, ce qui est judicieux en cas de gros volume. De plus, ceux-ci sont récupérés au format `list` pure, ce qui peut simplifier la manipulation en cas de données fortement imbriquées.
 
-```{r}
+- Affichage particulier des 10 premiers restaurants du *Queens* ayant un score supérieur à 50
+
+```r
 cursor = m$iterate(
   query = '{"borough": "Queens", "grades.score": { "$gte":  50}}',
   fields = '{"_id": 0, "name": 1, "address.street": 1}',
@@ -146,205 +490,56 @@ while(!is.null(doc <- cursor$one())){
 }
 ```
 
-Plutôt que d'avoir les documents un par un, il est ausi possible de les avoir par paquets avec la fonction `batch(n)` sur le curseur (`n` étant donc le nombre de documents renvoyés).
+Plutôt que d'avoir les documents un par un, il est ausi possible de les avoir par paquets avec la fonction `batch(n)` (ainsi que `page(n)` et `json(n)` qui diffèrent sur le type de ce qui est retourné) sur le curseur (`n` étant donc le nombre de documents renvoyés)
 
-### Agrégat
+- Vue des différences entre les 3 opérateurs
 
-#### Dénombrement
-
-On peut déjà faire un dénombrement avec la fonction `count()` de l'objet `m`. Sans option, on obtient le nombre de documents de la collection. On peut aussi ajouter une restriction pour avoir le nombre de documents respectant ces conditions. Les requêtes s'écrivent de la même manière que pour la fonction `find()`.
-
-```{r}
-m$count()
-m$count(query = '{"name": "Shake Shack"}')
-m$count(query = '{"borough": "Queens"}')
+```r
+cursor = m$iterate(limit = 15)
+cursor$batch(5)
+cursor$page(5)
+cursor$json(5)
 ```
 
-#### Autre
+- Calcul d'une moyenne par itération en `batch`
 
-Il existe la fonction `aggregate()` pour tous les calculs d'agrégat (et même plus). Il faut passer dans le paramètre `pipeline` un tableau d'actions, pouvant contenir les éléments suivants  :
-
-- `$project` : redéfinition des documents (si nécessaire)
-- `$match` : restriction sur les documents à utiliser
-- `$group` : regroupements et calculs à effectuer
-- `$sort` : tri sur les agrégats
-- `$unwind` : découpage de tableaux
-- ...
-
-```{r}
-m$aggregate(pipeline = '[
-    {"$group": {"_id": "Total", "NbRestos": {"$sum": 1}}}
-]')
-m$aggregate(pipeline = '[
-    {"$group": {"_id": "$borough", "NbRestos": {"$sum": 1}}}
-]')
+```r
+cursor = m$iterate()
+fin = FALSE
+n_batch = 5
+somme = 0
+nombre = 0
+liste = NULL
+while (!fin) {
+  #cat("\n\n--------------\n\n")
+  doc = cursor$batch(n_batch)
+  if (length(doc) > 0 ) {
+    scores = unlist(lapply(doc, function (d) {
+      res = lapply(d$grades, function (g) {
+        return (g$score)
+      })
+      return (res)
+    }))
+    #print(scores)
+    nombre = nombre + length(scores)
+    somme = somme + sum(scores)
+    #liste = c(liste, scores)
+  }
+  if (length(doc) < n_batch) {
+    fin = TRUE
+  }
+}
+cat("Résultat du calcul :", round(somme/nombre, 5), "\n")
 ```
 
-En plus de la somme, il  est bien évidemment possible de faire d'autres calculs statistiques de base (moyenne, minimum, maximum) comme nous le verrons par la suite.
+- Si on voulait la faire dans `R` en important les données
+    - Notez que le code est beaucoup plus simple
+    - **MAIS** beaucoup plus gourmand en espace disque en local et en blocage réseau (pour tout récupérer d'un coup)
 
-Si on veut faire des calculs sur les évaluations, il est nécessaire d'utiliser l'opération `$unwind`. Celle-ci permet de dupliquer les lignes de chaque document, avec chaque valeur du tableau indiqué. Voici son application sur le premier document.
-
-```{r}
-m$aggregate('[ { "$limit": 1 } ]')
-m$aggregate('[
-    { "$limit": 1 },
-    { "$unwind": "$grades" }
-]')
 ```
-
-Du coup, pour faire le calcul des notes moyennes des restaurants du *Queens*, on exécute le code suivant.
-
-```{r}
-m$aggregate('[
-    { "$match": { "borough": "Queens" }},
-    { "$unwind": "$grades" },
-    { "$group": { "_id": "null", "score": { "$avg": "$grades.score" }}}
-]')
+df = m$find()
+mean(Reduce(rbind, df$grades)$score, na.rm = T)
 ```
-
-Il est bien évidemment possible de faire ce calcul par quartier et de les trier selon les notes obtenues (dans l'ordre décroissant).
-
-```{r}
-m$aggregate('[
-    { "$unwind": "$grades" },
-    { "$group": { "_id": "$borough", "score": { "$avg": "$grades.score" }}},
-    { "$sort": { "score": -1}}
-]')
-```
-
-### Jointure entre deux collections
-
-Bien que dans l'esprit NoSQL, il est plutôt déconseillé de faire appel aux jointures, celles-ci sont parfois incontournables. Il est ainsi possible de réaliser une jointure entre deux collections, dans un aggrégat, avec l'opérateur `$lookup`.
-
-Nous disposons aussi d'une collection de documents nous indiquant l'étendue des notes prévues pour chaque score A, B et C.
-
-```{r}
-g = mongo(db = "du_abd",
-          collection = "grades")
-g$find()
-```
-
-Si nous souhaitons chercher les restaurants ayant un score en-dehors de ce qui est attendu, nous pouvons nous baser sur le code ci-dessous (on se limite ici à 10 restaurants).
-
-```{r}
-m$aggregate('[
-  { "$limit": 10 },
-  {"$project": { "_id": 0, "name": 1, "grades": { "$slice": [ "$grades", -1] }}},
-  { "$lookup": {
-    "from": "grades",
-    "localField": "grades.grade",
-    "foreignField": "grade",
-    "as": "info"
-  }}
-]')
-```
-
-
-### Map-Reduce
-
-Le paradigme **Map-Reduce** permet de décomposer une tâche en deux étapes :
-
-1. **Map** : application d'un algorithme sur chaque document, celui-ci renvoyant un résultat ou une série de résultat
-2. **Reduce** : synthèse des résultats renvoyés dans l'étape précédente selon certains critères
-
-Exemple classique : *décompte des mots présents dans un ensemble de texte*
-
-- *Map* : pour chaque texte, à chaque mot rencontré, on créé un couple `<mot, 1>` (un document = beaucoup de résultats générés)
-- *Reduce* : pour chaque mot, on fait la somme des valeurs pour obtenir le nombre de fois où chaque mot apparaît dans l'ensemble des textes à disposition
-
-On utilise la fonction `mapreduce()` de `m` pour appliquer l'algorithme Map-Reduce sur les documents de la collection, avec les paramètres suivants :
-
-- `map` : fonction **`JavaScript`**
-    - aucun paramètre
-    - `emit(key, value)` pour créer un couple résultat
-- `reduce` : fonction **`JavaScript`**
-    - deux paramètres : `key` et `values` (tableau des valeurs créés à l'étape précédente)
-    - `return result` pour renvoyer le résultat
-- `out` : collection éventuelle dans laquelle stocker les résultats dans *MongoDB*
-- ...
-
-Dans la fonction concernant l'étape *Map*, on utilise l'objet `this` pour accéder aux attributs du document. Le langage utilisé est le **`JavaScript`**.
-
-Dans l'exemple ci-dessous, nous calculons pour chaque quartier le nombre de restaurants.
-
-```{r}
-m$mapreduce(
-    map = 'function() { emit(this.borough, 1)}',
-    reduce = 'function(cont, nb) { return Array.sum(nb) }'
-)
-```
-
-Il est préférable d'utiliser ce paradigme pour réaliser des calculs impossibles à faire avec la fonction `aggregate()`. Dans les autres cas, il est préférable d'utiliser le calcul d'agrégat, plus rapide. Dans la comparaison ci-dessous, c'est bien le temps écoulé qui indique que le calcul est plus long avec `mapreduce()`.
-
-```{r}
-# Map-Reduce
-system.time({
-  m$mapreduce(
-    map = 'function() { emit(this.borough, 1)}',
-    reduce = 'function(cont, nb) { return Array.sum(nb) }'
-  )
-})
-# Agrégat
-system.time({
-  m$aggregate('[ { "$group": { "_id": "$borough", "nb": { "$sum": 1}}}]')
-})
-```
-
-
-## Un peu de cartographie avec `leaflet`
-
-Dans un premier temps, nous allons récupérer les longitudes et latitudes des restaurants ci-desssous.
-
-```{r}
-restos.coord = m$aggregate(
-'[
-    { "$project": { 
-        "name": 1, "borough": 1, 
-        "lng": { "$arrayElemAt": ["$address.coord", 0]}, 
-        "lat": { "$arrayElemAt": ["$address.coord", 1]} 
-    }}
-]')
-head(restos.coord)
-```
-
-Si on regarde les coordonnées obtenues, on remarque rapidement qu'il y a des *outliers* (les restaurants sont à New-York normalement).
-
-```{r}
-library(tidyverse)
-restos.coord %>%
-  select(name, lng, lat) %>%
-  gather(var, val, -name) %>%
-  group_by(var) %>%
-  summarise(
-    min = min(val, na.rm = T),
-    max = max(val, na.rm = T)
-  )
-```
-
-Ce que l'on peut montrer grâce à la librairie [`leaflet`](https://rstudio.github.io/leaflet). Nous allons afficher les différents restaurants sur la carte du monde.
-
-```{r}
-library(leaflet)
-
-leaflet(restos.coord) %>%
-  addTiles() %>%
-  addCircles(lng = ~lng, lat = ~lat)
-```
-
-En se centrant sur la ville de New-York, et en ajoutant une couleur en fonction du quartier, on visualise mieux les restaurants.
-
-```{r}
-pal = colorFactor("Accent", restos.coord$borough)
-leaflet(restos.coord) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  setView(lng  = -73.9,
-          lat  =  40.7,
-          zoom =  10) %>%
-  addCircles(lng = ~lng, lat = ~lat, color = ~pal(borough)) %>%
-  addLegend(pal = pal, values = ~borough, opacity = 1, 
-            title = "Quartier")
-```
-
 
 ## A faire
 
@@ -353,33 +548,35 @@ leaflet(restos.coord) %>%
 
 Envoyez votre fichier (script `R` ou markdown `Rmd` - avec votre nom dans le nom du fichier) par mail à **francois-xavier.jollois@u-paris.fr**.
 
-
 ### Restaurants 
 
 1. Lister tous les restaurants de la chaîne "Bareburger" (rue, quartier)
 1. Lister les trois chaînes de restaurant les plus présentes
+1. Donner les 10 styles de cuisine les plus présents dans la collection
 1. Lister les 10 restaurants les moins bien notés (note moyenne la plus haute)
 1. Lister par quartier le nombre de restaurants, le score moyen et le pourcentage moyen d'évaluation A
-1. Afficher les restaurants sur une carte en mettant une couleur en fonction de la note moyenne des restaurants
 
-### Horodateurs parisien
+#### Questions complémentaires
 
-Nous allons découvrir dans ce TP les [données utilisées](https://opendata.paris.fr/explore/dataset/horodateurs-transactions-de-paiement/) dans le projet à rendre, qui sont l'ensemble des **transactions sur les horodateurs** dans la ville de **Paris** sur l'année **2014**. Celles-ci proviennent du site [Open Data Paris](https://opendata.paris.fr/), répertoire des données ouvertes de la ville de Paris. Elles sont stockées sur le serveur MongoDB déjà utilisé, dans la base horodateurs.
+Nécessitent une recherche sur la toile pour compléter ce qu’on a déjà vu dans ce TP.
 
-Elle contient trois collections importantes :
+1. Lister les restaurants (nom et rue uniquement) situés sur une rue ayant le terme “Union” dans le nom
+1. Lister les restaurants ayant eu une visite le 1er février 2014
+1. Lister les restaurants situés entre les longitudes -74.2 et -74.1 et les lattitudes 40.1 et 40.2
 
-- `transactions` : ensemble des paiements
-- `transactions_small` : 1% des paiements (à utiliser avant de lancer sur un calcul sur `transactions`)
-- `mobiliers` : liste de tous les horodateurs
 
-1. Lister les informations du premier mobilier
-1. Donner le nombre de mobiliers
-1. Lister les informations de la première transaction
-1. Donner le nombre de transactions
-1. Lister les informations du mobilier `1234` (cf `objectid`)
-1. Donner le nombre de mobiliers pour chaque arrondissement (`arrondt`)
-1. Croiser le régime (`regime`) et les arrondissements pour voir s'il y a des différences notables (idéalement en réalisant un graphique avec `ggplot`)
-1. Donner la distribution des montants payés (`montant carte`) et des durées payées (`durée payée (h)`) des transactions
-1. Représenter le nombre de transactions par arrondissement (la jointure se faire entre `horodateur` dans `mobiliers` et `numhoro` dans `transactions`)
-1. Représenter chaque mobilier sur la carte de Paris, en ajoutant une couleur en fonction du nombre de transactions réalisées durant l'année
+### AirBnB
+
+Nous allons travailler sur des données AirBnB. Celles-ci sont stockées sur le serveur Mongo dans la collection `listingsAndReviews` de la base `sample_airbnb`.
+
+1. Créer la connexion à la collection dans R
+1. Donner le nombre de logements
+1. Lister les informations du logement "10545725" (cf _id)
+1. Lister les différentes types de logements possibles cf (room_type)
+1. Donner le nombre de logements par type
+1. Représenter graphiquement la distribution des prix 
+1. Croiser numériquement et graphiquement le type et le prix (price)
+1. Représenter la distribution du nombre d'avis (cf reviews - à calculer)
+1. Croiser graphiquement le nombre d'avis et le prix, en ajoutant l'information du type de logement
+
 

@@ -121,9 +121,10 @@ leaflet(df) %>%
 ```
 
 ## Refaire la carte, avec les crtières suivant :
-#     - Une carte par type de logement
-#     - Couleur en fonction du prix du logement
-#     - Taille en fonction du nombre d'avis déposé
+
+- Une carte par type de logement
+- Couleur en fonction du prix du logement
+- Taille en fonction du nombre d'avis déposé
 
 
 ```{r}
