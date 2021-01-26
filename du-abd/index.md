@@ -3,12 +3,12 @@
 - [Présentation de MongoDB](du-abd--slides.html)
 - [Introduction à R et **MongoDB**](du-abd--r-mongodb)
 
-Non vu aujourd'hui mais ressource potentiellement intéressante pour vous :
-
-- [Introduction à R et **Hadoop**](du-abd--r-hadoop.html) (avec **SparkR**)
-
-
 ## Pour travail à la maison
+
+2 possibilités :
+
+- Vous me déclarez votre adresse IP pour que je puisse vous autoriser à vous conncter au serveur MongoDB
+- Vous installez les outils sur votre ordinateur (cf procédure ci-dessous)
 
 ### A faire pour pouvoir utiliser l'outil sur votre ordinateur
 
@@ -26,6 +26,9 @@ Non vu aujourd'hui mais ressource potentiellement intéressante pour vous :
 
 - Installer [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) en version Community (gratuite)
     - vous devez suivre les opérations
+        1. installer `brew` si ce n'est pas encore fait
+        1. installer le serveur
+        1. démarrer le serveur
     - pensez à lancer le service (comme indiqué à la fin)
     - l'outil n'est pas très gourmand en espace normalement
 - Installer l'outil [Compass](https://www.mongodb.com/try/download/compass)
@@ -34,8 +37,9 @@ Non vu aujourd'hui mais ressource potentiellement intéressante pour vous :
 
 ### Chargement des données
 
+#### Restaurants
 
-Nous allons ici créer une premi!ère base de données, que l'on nommera `test`, contenant une seule collection pour le moment, nommée `restaurants`.
+Nous allons ici créer une première base de données, que l'on nommera `test`, contenant une seule collection pour le moment, nommée `restaurants`.
 
 1. Ouvrir Compass
 1. Cliquer directement sur *Connect* (votre serveur étant local, il n'y a pas besoin de le spécifier)
@@ -60,3 +64,11 @@ Une fois téléchargé, suivez la procédure suivante pour l'ajouter dans Mongo 
 1. Une fois l'opération terminé (25359 documents ajoutés), cliquer sur *DONE*
 
 Votre première base est maitenant créée avec une collection de 25359 restaurants donc.
+
+#### AirBnB
+
+vous devez faire de même avec les données [AirBnB](https://cloud.parisdescartes.fr/index.php/s/5q5eAHmCRMci6Bf) :
+
+1. Les télécharger (**attention** : ~110 Mo)
+1. Créer une collection `listingsAndReviews` (par exemple), dans la base de données `test` (par exemple)
+1. Charger les données dans la collection
