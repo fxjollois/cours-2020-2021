@@ -34,7 +34,7 @@ On indique juste avec un entier le nombre de document que l'on veut afficher.
 - Limite aux 10 premiers restaurants
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 }
 ])
 ```
@@ -46,7 +46,7 @@ On indique de façon identique à celle du paramètre `sort` de la fonction `fin
 - Idem avec tri sur le nom du restaurant
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $sort: { name: 1 }}
 ])
@@ -60,7 +60,7 @@ Ici, c'est identique à celle du paramètre `query` des autres fonctions
     - Notez que nous obtenons uniquement 5 restaurants au final
     
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $sort: { name: 1 }},
     { $match: { borough: "Brooklyn" }}
@@ -71,7 +71,7 @@ db.restaurants.aggregate(pipeline = [
     - Nous avons ici les 10 premiers restaurants de *Brooklyn* donc
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $match: { borough: "Brooklyn" }},
     { $limit: 10 },
     { $sort: { name: 1 }}
@@ -91,7 +91,7 @@ Nous devons mettre le nom du tableau servant de base pour le découpage (précé
     - Chaque ligne correspond maintenant a une évaluation pour un restaurant
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $unwind: "$grades" }
 ])
@@ -100,7 +100,7 @@ db.restaurants.aggregate(pipeline = [
 - Idem précédemment, en se restreignant à celle ayant eu *B*
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $unwind: "$grades" },
     { $match: { "grades.grade": "B" }}
@@ -110,7 +110,7 @@ db.restaurants.aggregate(pipeline = [
 - Si on inverse les opérations `$unwind` et `$match`, le résultat est clairement différent
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $match: { "grades.grade": "B" }},
     { $unwind: "$grades" }
@@ -140,7 +140,7 @@ Quelques opérateurs utiles pour la projection (plus d'info [ici](https://docs.m
 - On peut aussi vouloir ajouter un champs, comme ici le nombre d'évaluations
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $addFields: { nb_grades: { $size: "$grades" } } }
 ])
@@ -150,7 +150,7 @@ db.restaurants.aggregate(pipeline = [
     - Notez l'ordre (alphabétique) des variables, et pas celui de la déclaration
     
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { name: 1, borough: 1 } }
 ])
@@ -159,7 +159,7 @@ db.restaurants.aggregate(pipeline = [
 - Ici, on supprime l'adresse et les évaluations 
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { address: 0, grades: 0 } }
 ])
@@ -168,7 +168,7 @@ db.restaurants.aggregate(pipeline = [
 - En plus du nom et du quartier, on récupère l'adresse mais dans un nouveau champs 
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { name: 1, borough: 1 , street: "$address.street"} }
 ])
@@ -177,7 +177,7 @@ db.restaurants.aggregate(pipeline = [
 - On ajoute le nombre de visites pour chaque restaurant (donc la taille du tableau `grades`)
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { name: 1, borough: 1, nb_grades: { $size: "$grades" } } }
 ])
@@ -188,7 +188,7 @@ db.restaurants.aggregate(pipeline = [
     - Dans l'idéal, ces restaurants ne devraient pas avoir de champs `grades`
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $project: { name: 1, borough: 1, nb_grades: { $size: "$grades" } } },
     { $sort: { nb_grades: 1 }},
     { $limit: 10 }
@@ -198,7 +198,7 @@ db.restaurants.aggregate(pipeline = [
 - On ne garde maintenant que le premier élément du tableau `grades` (indicé 0)
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { name: 1, borough: 1, grade: { $arrayElemAt: [ "$grades", 0 ]} } }
 ])
@@ -207,7 +207,7 @@ db.restaurants.aggregate(pipeline = [
 - On peut aussi faire des opérations sur les chaînes, tel que la mise en majuscule du nom
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { nom: { $toUpper: "$name" }, borough: 1 } }
 ])
@@ -216,7 +216,7 @@ db.restaurants.aggregate(pipeline = [
 - On extrait ici les trois premières lettres du quartier
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $project: { 
         nom: { $toUpper: "$name" }, 
@@ -229,7 +229,7 @@ db.restaurants.aggregate(pipeline = [
     - on garde le quartier d'origine pour vérification ici
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $addFields: { quartier: { $toUpper: { $substr: [ "$borough", 0, 3 ] } } }},
     { $project: { 
@@ -257,7 +257,7 @@ Cet opérateur permet le calcul d'agrégats tel qu'on le connaît.
 - On calcule ici le nombre total de restaurants
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $group: { _id: "Total", NbRestos: { $sum: 1 }}}
 ])
 ```
@@ -265,7 +265,7 @@ db.restaurants.aggregate(pipeline = [
 - On fait de même, mais par quartier
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $group: { _id: "$borough", NbRestos: { $sum: 1 }}}
 ])
 ```
@@ -273,7 +273,7 @@ db.restaurants.aggregate(pipeline = [
 - Pour faire le calcul des notes moyennes des restaurants du *Queens*, on exécute le code suivant
 
 ```js
-db.restaurants.aggregate('[
+db.restaurants.aggregate([
     { $match: { borough: "Queens" }},
     { $unwind: "$grades" },
     { $group: { _id: "null", score: { $avg: "$grades.score" }}}
@@ -283,7 +283,7 @@ db.restaurants.aggregate('[
 -  Il est bien évidemment possible de faire ce calcul par quartier et de les trier selon les notes obtenues (dans l'ordre décroissant)
 
 ```js
-db.restaurants.aggregate('[
+db.restaurants.aggregate([
     { $unwind: "$grades" },
     { $group: { _id: "$borough", score: { $avg: "$grades.score" }}},
     { $sort: { score: -1 }}
@@ -294,7 +294,7 @@ db.restaurants.aggregate('[
     - Notez que le premier `$match` permet de supprimer les restaurants sans évaluations (ce qui engendrerait des moyennes = `NA`)
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $project: { 
         borough: 1, street: "$address.street", 
         eval: { $arrayElemAt: [ "$grades", 0 ]} 
@@ -315,7 +315,7 @@ db.restaurants.aggregate(pipeline = [
     - `$push` : toutes les valeurs présentes
 
 ```js
-db.restaurants.aggregate(pipeline = [
+db.restaurants.aggregate([
     { $limit: 10 },
     { $unwind: "$grades" },
     { $group: { 
@@ -334,7 +334,7 @@ modalité de ce champs, puis fait un tri décroissant sur le nombre calculé. Il
 - Quartiers de New-York triés par nombre décroissant de restaurants
 
 ```js
-db.restaurants.aggregate('[
+db.restaurants.aggregate([
     { $sortByCount: "$borough" }
 ])
 ```
