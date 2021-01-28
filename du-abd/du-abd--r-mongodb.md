@@ -569,6 +569,8 @@ Nécessitent une recherche sur la toile pour compléter ce qu’on a déjà vu d
 
 Nous allons travailler sur des données AirBnB. Celles-ci sont stockées sur le serveur Mongo dans la collection `listingsAndReviews` de la base `sample_airbnb`.
 
+> [Aide sur les données](https://docs.atlas.mongodb.com/sample-data/sample-airbnb)
+
 1. Créer la connexion à la collection dans R
 1. Donner le nombre de logements
 1. Lister les informations du logement "10545725" (cf _id)
