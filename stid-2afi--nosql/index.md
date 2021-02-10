@@ -20,9 +20,13 @@
 
 - [Initiation au NoSQL](seance1-slides.html)
 - [Introduction à MongoDB](seance2-slides.html)
+
 - [TP1 : Premiers pas](tp1)
-- [TP2 : Aggrégats et autres](tp2)
+- [TP2 : Agrégats et autres](tp2)
 - [TP3 : Récapitulatif](tp3)
+
+- [TP4 : Mongo dans R]()
+- [TP5]
 
 ## Pour utilisation sur ordinateur personnel
 
