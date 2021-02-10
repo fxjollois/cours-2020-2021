@@ -6,13 +6,125 @@ editor_options:
   chunk_output_type: console
 ---
 
+Correction de ce [TP](https://fxjollois.github.io/cours-2020-2021/du-abd/du-abd--r-mongodb)
+
 ```{r}
 library(mongolite)
-library(tidyverse)
-library(leaflet)
+library(ggplot2)
+library(dplyr)
 ```
 
-## Créer la connexion à la collection dans R
+## Restaurants
+
+On reprend les instructions de connexion vues dans le TP. Pour les adapter au cas où vous avez installé MongoDB en local sur votre ordinateur, il suffit de ne garder que la dernière instruction (`m = mongo(...)`), en supprimant le paramètre `url = URI`.
+
+```{r}
+USER = "user"
+PASS = "user"
+HOST = "cluster0.ougec.mongodb.net"
+URI = sprintf("mongodb+srv://%s:%s@%s/", USER, PASS, HOST)
+
+m = mongo(
+  collection = "restaurants", 
+  db = "sample_restaurants", 
+  url = URI)
+```
+
+### Lister tous les restaurants de la chaîne “Bareburger” (rue, quartier)
+
+Restriction sur le nom + projection sur certains champs
+
+```{r}
+m$find(
+  query = '{ "name": "Bareburger" }', 
+  fields = '{ "_id": 0, "address.street": 1, "borough": 1 }'
+)
+```
+
+### Lister les trois chaînes de restaurant les plus présentes
+
+2 possibilités ici, avec un résultat bien évidemment identique :
+
+- avec `$group` + `$sort`
+
+```{r}
+m$aggregate(
+  '[
+  { "$group": {"_id": "$name", "nb": { "$sum": 1 }}},
+  { "$sort": { "nb": -1 }},
+  { "$limit": 3 }
+  ]'
+)
+```
+
+- directement avec `$sortByCount`
+
+```{r}
+m$aggregate(
+  '[
+  { "$sortByCount": "$name" },
+  { "$limit": 3 }
+  ]')
+```
+
+### Donner les 10 styles de cuisine les plus présents dans la collection
+
+Similaire à la question précédente
+
+```{r}
+m$aggregate(
+  '[
+  { "$sortByCount": "$cuisine" },
+  { "$limit": 10 }
+  ]')
+```
+
+### Lister les 10 restaurants les moins bien notés (note moyenne la plus haute)
+
+Ici, on doit déjà *dérouler* ou *exploser* le tableau des visites, puis ensuite calculer la note moyenne par restaurant
+
+```{r}
+m$aggregate(
+  '[
+  { "$unwind": "$grades" },
+  { "$group": {
+    "_id": { "id": "$restaurant_id", "name": "$name" },
+    "noteMoyenne": { "$avg": "$grades.score" }
+  }},
+  { "$sort": { "noteMoyenne": -1 }},
+  { "$limit": 10 }
+  ]'
+)
+```
+
+### Lister par quartier le nombre de restaurants, le score moyen et le pourcentage moyen d’évaluation A
+
+Il faut calculer par restaurants le score moyen + le nombre d'évaluation (global et uniquement de A), tout en gardant le quartier comme information. Ensuite, on calcule par restaurant le pourcentage d'évaluation A. Et enfin, on refait un `$group` par quartier pour finir.
+
+```{r}
+m$aggregate(
+  '[
+  { "$unwind": "$grades" },
+  { "$group": {
+    "_id": { "id": "$restaurant_id", "q": "$borough" },
+    "scoreMoyen": { "$avg": "$grades.score" },
+    "nbEvals": { "$sum": 1 },
+    "nbA": { "$sum": { "$cond": [ { "$eq": ["$grades.grade", "A"] }, 1, 0 ] }}
+  }},
+  { "$addFields": { "pctA": { "$divide": [ "$nbA", "$nbEvals" ]}}},
+  { "$group": {
+    "_id": "$_id.q",
+    "nbRestaurants": { "$sum": 1 },
+    "scoreMoyen": { "$avg": "$scoreMoyen" },
+    "pctMoyenA": { "$avg": "$pctA" }
+  }}
+  ]'
+)
+```
+
+## AirBnB
+
+### Créer la connexion à la collection dans R
 
 ```{r}
 USER = "user"
@@ -27,25 +139,27 @@ data = mongo(
 )
 ```
 
-## Donner le nombre de logements
+### Donner le nombre de logements
 
 ```{r}
 data$count()
 ```
 
-## Lister les informations du logement "10545725" (cf _id)
+### Lister les informations du logement "10545725" (cf _id)
 
 ```{r}
-data$find(query = '{"_id": "10545725"}')
+df = data$find(query = '{"_id": "10545725"}')
+# Pour l'afficher plus "joliment"
+jsonlite::toJSON(as.list(df), pretty = T, auto_unbox = T)
 ```
 
-## Lister les différentes types de logements possibles cf (room_type)
+### Lister les différentes types de logements possibles cf (room_type)
 
 ```{r}
 data$distinct("room_type")
 ```
 
-## Donner le nombre de logements par type 
+### Donner le nombre de logements par type 
 
 ```{r}
 data$aggregate(
@@ -55,29 +169,38 @@ data$aggregate(
 ```
 
 
-## Représenter graphiquement la distribution des prix 
+### Représenter graphiquement la distribution des prix 
+
+Utilisation d'une échelle logarithmique sur l'axe $Y$ pour améliorer la lisibilité.
 
 ```{r}
 df = data$find(fields = '{ "_id": 0, "price": 1 }')
 ggplot(df, aes(price)) +
   geom_histogram() +
-  scale_y_log10()
+  scale_y_log10() +
+  theme_minimal() +
+  labs(x = "Prix", y = "Occurences - échelle logarithmique")
 ```
 
-## Croiser numériquement et graphiquement le type et le prix (price)
+### Croiser numériquement et graphiquement le type et le prix (price)
 
 ```{r}
 data$aggregate(
 '[
   { "$group": { "_id": "$room_type", "prix_moyen": { "$avg": "$price" }}}
 ]')
+```
+
+```{r}
 df = data$find(fields = '{ "_id": 0, "price": 1, "room_type": 1 }')
 ggplot(df, aes(room_type, price, fill = room_type)) +
   geom_boxplot() +
-  scale_y_log10()
+  scale_y_log10() +
+  theme_minimal() +
+  labs(x = "Type de logement", y = "Prix - échelle logarithmique")
 ```
 
-## Représenter la distribution du nombre d'avis
+### Représenter la distribution du nombre d'avis
 
 ```{r}
 df = data$aggregate(
@@ -86,10 +209,17 @@ df = data$aggregate(
 ]'
 )
 ggplot(df, aes(nb_avis)) +
-  geom_histogram()
+  geom_histogram() +
+  theme_minimal() +
+  labs(x = "Nombre d'avis", y = "Nombre de logements")
 ```
 
-## Croiser graphiquement le nombre d'avis et le prix, en ajoutant l'information du type de logement
+### Croiser graphiquement le nombre d'avis et le prix, en ajoutant l'information du type de logement
+
+On peut le faire avec toutes les données (nuage de points). 
+
+- *Problème* : on doit récupérer dans R toutes les données, ce qui peut ne pas être possible en cas de **big data**.
+- *Avantage* : on peut avoir une idée de la (non) corrélation entre les deux
 
 ```{r}
 df = data$aggregate(
@@ -100,44 +230,74 @@ df = data$aggregate(
 ggplot(df, aes(nb_avis, price, color = room_type)) +
   geom_point() +
   scale_y_log10() +
-  facet_wrap(~ room_type)
+  facet_wrap(~ room_type) +
+  theme_minimal()
 ```
 
-## Représenter les logements sur une carte, avec une couleur en fonction du type
+#### Autre possibilité 
+
+On demande un calcul statistique à Mongo, qu'on représente graphiquement dans R. Dans ce cas, nous réalisons les étapes suivantes :
+
+1. Ajout du nombre d'avis
+2. Discrétisation de cette variable en une variable ordinale à l'aide de [`$bucket`](https://docs.mongodb.com/manual/reference/operator/aggregation/bucket/), 
+  - avec les intervalles suivants :
+    - $= 0$
+    - $= 1$
+    - $\in [2;4]$
+    - $\in [5;9]$
+    - $\in [10;99]$
+    - $\ge 100$
+  - cet opérateur fait 2 opérations :
+    - modification d'un champs (donné dans `groupBy`) en variable ordinale, basée sur les limites passés dans `boundaries`
+    - calcul d'agrégats dans `output`, de la même façon que dans `$group`
+3. Déroulement du tableau `infos`, pour chaque modalité de `nb_avis`
+  - ce tableau contient, pour chaque logement, le type et le prix
+4. Calcul d'agrégats par type de logement et par tranche du nombre d'avis
+5. Projection pour une utilisation plus simple dans R
 
 ```{r}
 df = data$aggregate(
   '[
-    { "$project": { 
-      "room_type": 1,
-      "lng": { "$arrayElemAt": [ "$address.location.coordinates", 0 ] },
-      "lat": { "$arrayElemAt": [ "$address.location.coordinates", 1 ] }
-    }}
+  { "$addFields": { "nb_avis": { "$size": "$reviews" }}},
+  { "$bucket": {
+  "groupBy": "$nb_avis",
+  "boundaries": [ 0, 1, 2, 5, 10, 100, 1000],
+  "output": {
+    "infos": { "$push": { "type": "$room_type", "prix": "$price" }}
+  }
+  }},
+  { "$unwind": "$infos" },
+  { "$group": {
+    "_id": { "type": "$infos.type", "avis": "$_id" },
+    "nbLogements": { "$sum": 1 },
+    "prixMoyen": { "$avg": "$infos.prix" },
+    "prixET": { "$stdDevPop": "$infos.prix" }
+  }},
+  { "$project": {
+    "_id": 0,
+    "type": "$_id.type",
+    "avis": "$_id.avis",
+    "nb": "$nbLogements",
+    "prix": "$prixMoyen",
+    "prix_sd": "$prixET"
+  }}
   ]'
 )
-leaflet(df) %>%
-  addTiles() %>%
-  addCircles(lng = ~lng, lat = ~lat)
+df
 ```
 
-## Refaire la carte, avec les crtières suivant :
-
-- Une carte par type de logement
-- Couleur en fonction du prix du logement
-- Taille en fonction du nombre d'avis déposé
-
+Ensuite, dans R, on calcul les bornes de l'intervalle $(\mu \pm \sigma)$. Puis on représente les valeurs sur un graphique.
 
 ```{r}
-df = data$aggregate(
-  '[
-    { "$project": { 
-      "room_type": 1, "price": 1,
-      "lng": { "$arrayElemAt": [ "$address.location.coordinates", 0 ] },
-      "lat": { "$arrayElemAt": [ "$address.location.coordinates", 1 ] }
-    }}
-  ]'
-)
-leaflet(df) %>%
-  addTiles() %>%
-  addCircles(lng = ~lng, lat = ~lat)
+modalites = c("Aucun", "Un seul", "Entre 2 et 4", "Entre 5 et 9", "Entre 10 et 99", "Plus de 100")
+couleurs = c("steelblue", "deeppink3", "darkolivegreen")
+ggplot(df, aes(x = type, y = prix, ymin = 0, ymax = prix, color = type)) +
+  geom_pointrange() +
+  scale_color_manual(values = couleurs) +
+  facet_grid(~ factor(avis, labels = modalites)) +
+  theme_minimal() +
+  labs(x = "", color = "Type de logement", y = "Prix") +
+  theme(axis.text.x = element_blank()) +
+  ggtitle("Lien entre le prix, le type et le nombre d'avis")
 ```
+
