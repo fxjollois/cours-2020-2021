@@ -2,32 +2,20 @@
 
 ## Données
 
-Dans cette évaluation, nous allons travailler sur des données concernant des logement AirBnB. Vous trouverez ci-dessous le contenu du premier document (réduit aux éléments importants pour cette évaluation - les textes longs ont été remplacé par `"..."`).
+Dans cette évaluation, nous allons travailler sur des données concernant des logement AirBnB. Vous trouverez ci-dessous le contenu du premier document (réduit aux éléments importants pour cette évaluation).
+
+db.copy.update(
+{},
+{ $unset: {avaibility: ""} },
+{ multi: true}
+)
 
 ```json
 {
 	"_id" : "10677883",
 	"listing_url" : "https://www.airbnb.com/rooms/10677883",
 	"name" : "Great location in Barcelona",
-	"summary" : "...",
-	"space" : "Is like seen in the pictures, not new but functional.",
-	"description" : "...",
-	"neighborhood_overview" : "One of the best in town",
-	"notes" : "",
-	"transit" : "Bus, train, metro and taxi.",
-	"access" : "Whole apartment.",
-	"interaction" : "No estare infelizmente",
-	"house_rules" : "...",
-	"property_type" : "Apartment",
 	"room_type" : "Entire home/apt",
-	"bed_type" : "Real Bed",
-	"minimum_nights" : "200",
-	"maximum_nights" : "1125",
-	"cancellation_policy" : "strict_14_with_grace_period",
-	"last_scraped" : ISODate("2019-03-08T05:00:00Z"),
-	"calendar_last_scraped" : ISODate("2019-03-08T05:00:00Z"),
-	"first_review" : ISODate("2016-01-19T05:00:00Z"),
-	"last_review" : ISODate("2016-03-01T05:00:00Z"),
 	"accommodates" : 5,
 	"bedrooms" : 4,
 	"beds" : 4,
@@ -48,37 +36,6 @@ Dans cette évaluation, nous allons travailler sur des données concernant des l
 	"cleaning_fee" : NumberDecimal("7.00"),
 	"extra_people" : NumberDecimal("0.00"),
 	"guests_included" : NumberDecimal("2"),
-	"images" : {
-		"thumbnail_url" : "",
-		"medium_url" : "",
-		"picture_url" : "https://a0.muscache.com/im/pictures/209da3b7-8831-4b36-8abf-a81fd1f91f82.jpg?aki_policy=large",
-		"xl_picture_url" : ""
-	},
-	"host" : {
-		"host_id" : "6151720",
-		"host_url" : "https://www.airbnb.com/users/show/6151720",
-		"host_name" : "Marina E Mickael",
-		"host_location" : "Portimão, Faro District, Portugal",
-		"host_about" : "Familia multicultural!!!",
-		"host_response_time" : "within an hour",
-		"host_thumbnail_url" : "https://a0.muscache.com/im/pictures/user/7b0aef6d-6e58-4ba8-a89e-7e07913af208.jpg?aki_policy=profile_small",
-		"host_picture_url" : "https://a0.muscache.com/im/pictures/user/7b0aef6d-6e58-4ba8-a89e-7e07913af208.jpg?aki_policy=profile_x_medium",
-		"host_neighbourhood" : "El Clot",
-		"host_response_rate" : 100,
-		"host_is_superhost" : false,
-		"host_has_profile_pic" : true,
-		"host_identity_verified" : false,
-		"host_listings_count" : 3,
-		"host_total_listings_count" : 3,
-		"host_verifications" : [
-			"email",
-			"phone",
-			"google",
-			"reviews",
-			"jumio",
-			"government_id"
-		]
-	},
 	"address" : {
 		"street" : "Barcelona, Catalunya, Spain",
 		"suburb" : "Sant Martí",
@@ -95,12 +52,6 @@ Dans cette évaluation, nous allons travailler sur des données concernant des l
 			"is_location_exact" : true
 		}
 	},
-	"availability" : {
-		"availability_30" : 23,
-		"availability_60" : 53,
-		"availability_90" : 83,
-		"availability_365" : 358
-	},
 	"review_scores" : {
 		"review_scores_accuracy" : 10,
 		"review_scores_cleanliness" : 8,
@@ -114,18 +65,14 @@ Dans cette évaluation, nous allons travailler sur des données concernant des l
 		{
 			"_id" : "60192990",
 			"date" : ISODate("2016-01-19T05:00:00Z"),
-			"listing_id" : "10677883",
 			"reviewer_id" : "2526217",
-			"reviewer_name" : "Ronnay",
-			"comments" : "..."
+			"reviewer_name" : "Ronnay"
 		},
 		{
 			"_id" : "64271851",
 			"date" : ISODate("2016-03-01T05:00:00Z"),
-			"listing_id" : "10677883",
 			"reviewer_id" : "60514860",
-			"reviewer_name" : "Samir",
-			"comments" : "... "
+			"reviewer_name" : "Samir"
 		}
 	]
 }
