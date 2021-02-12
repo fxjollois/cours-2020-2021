@@ -117,12 +117,12 @@ db.airbnb.aggregate([
     {$group: {_id: "$beds", nb: {$sum: 1}}},
     {$sort: {_id: 1}}
 ])
-9. Donner par équipements (champs `amenities`) le nombre de logements, en triant les équipements par nombre de films décroissant
+9. Donner par équipements (champs `amenities`) le nombre de logements, en triant les équipements par nombre de logements décroissant
 db.airbnb.aggregate([
     {$unwind: "$amenities"},
     {$sortByCount: "$amenities"}
 ])
-10. Quels sont les 5 noms de personnes (sans prendre en compte l'id) ayant écrit le plus de d'avis (nom du reviewer, avec le nombre de films joués)
+10. Quels sont les 5 noms de personnes (sans prendre en compte l'id) ayant écrit le plus de d'avis (nom du reviewer, avec le nombre d'avis écrits)
 db.airbnb.aggregate([ 
     {$unwind: "$reviews"},
     {$sortByCount: "$reviews.reviewer_name"},
