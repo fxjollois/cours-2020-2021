@@ -282,6 +282,9 @@ Le code est commenté pour expliquer ce que chaque partie permet de réaliser da
     
 ## A réaliser 
 
+En se basant sur le début de travail <a href="https://plnkr.co/edit/ShUZlSdba0nCTIdh?preview" target="_blank">proposé ici</a> pour accéder à l'exemple
+, réaliser les deux demands suivantes.
+
 ### Demande
 
 Réaliser l'évolution des anomalies de température, par rapport à la période de référence 1961-1990 (donc de l'indice *HadCRUT4* - cf lien ci-dessous). Les données sont disponibles sur une grille mondiale, mais nous allons prendre ici la médiane globale de ces anomalies.
