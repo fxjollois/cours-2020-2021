@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <title>TP7 : base de travail</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css">
+
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <style>
+            .pure-g {
+                margin: 10px;
+            }
+            .onglet {
+                display: none;
+            }
+            #onglet_global {
+                display: block;
+            }
+            #onglet_global p {
+                visibility: hidden;
+            }
+            #table_dep {
+                visibility: hidden;
+            }
+            #table_dep table {
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Dashboard de ma petite entreprise</h1>
+        <div class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item pure-menu-selected onglet_menu">
+                    <a href="#" class="pure-menu-link">Global</a>
+                </li>
+                <li class="pure-menu-item onglet_menu">
+                    <a href="#" class="pure-menu-link">Départements</a>
+                </li>
+                <li class="pure-menu-item onglet_menu">
+                    <a href="#" class="pure-menu-link">Provenances</a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="pure-g onglet" id="onglet_global">
+            <div class="pure-u-2-3">
+                <div id="global_evolution">
+                    <p>graph de l'évolution ici</p>
+                </div>
+            </div>
+            <div class="pure-u-1-3">
+                <div id="global_legende">
+                    <p>légende du graph</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pure-g onglet" id="onglet_dep">
+            <div class="pure-u-1-3">
+                <div id="dep_table">
+                    <table class="pure-table pure-table-horizontal">
+                        <caption>Département</caption>
+                        <thead>
+                            <tr>
+                                <th>Département</th>
+                                <th>CA réalisé (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="pure-u-2-3">
+                <div id="graph_dep">
+                    <p class="pure-menu-disabled">Cliquer sur un département pour avoir le détail de celui-ci</p>
+                </div>
+                <div id="table_dep">
+                    <table class="pure-table pure-table-horizontal">
+                        <caption>Détails du département</caption>
+                        <thead>
+                            <tr>
+                                <th>Département</th>
+                                <th>Groupe</th>
+                                <th>Sous-groupe</th>
+                                <th>CA réalisé (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pure-g onglet" id="onglet_prov">
+            Provenances
+        </div>
+        
+        
+        
+        
+        <!-- placement des scripts à la fin pour être sûr que la page soit chargée -->
+        <script src="script_gestion_onglets.js"></script>
+        <script src="script_chargement.js"></script>
+    </body>
+</html>
