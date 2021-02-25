@@ -51,5 +51,5 @@ Dans le fichier `script_chargement.js`
 
 
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeM0Hto8yQbEQGACkixq9nRdmuzs6lpUYvgRk9tbFfa9KtNXg/viewform?embedded=true" width="640" height="390" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeM0Hto8yQbEQGACkixq9nRdmuzs6lpUYvgRk9tbFfa9KtNXg/viewform?embedded=true" width="640" height="2000" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
 
