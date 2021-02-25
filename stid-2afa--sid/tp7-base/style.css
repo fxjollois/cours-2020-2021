@@ -13,7 +13,7 @@
 #table_dep {
     visibility: hidden;
 }
-#table_dep table {
+table {
     margin: 0 auto;
 }
 /*
