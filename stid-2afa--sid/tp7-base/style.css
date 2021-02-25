@@ -1,0 +1,21 @@
+.pure-g {
+    margin: 10px;
+}
+.onglet {
+    display: none;
+}
+#onglet_global {
+    display: block;
+}
+#onglet_global p {
+    visibility: hidden;
+}
+#table_dep {
+    visibility: hidden;
+}
+#table_dep table {
+    margin: 0 auto;
+}
+/*
+    Mettre ici la demande sur le Global
+*/
