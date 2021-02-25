@@ -66,6 +66,7 @@ d3.csv(
                     .data(series)
                     .join("path")
                         .attr("fill", function(d) { return color(d); })
+                        .attr("class", "zone")
                         .attr("d", area);
                 
                 var legende_svg = d3.select("#global_legende").html("").append("svg")
@@ -109,8 +110,10 @@ d3.csv(
             .data(donnees)
             .enter()
             .append("tr")
+            .attr("class", "departement")
             .on("click", function() {
                 var dpt_choisi = d3.select(this).datum().departement;
+                // Mettre ici la demande sur l'onglet Départements
                 d3.select("#graph_dep").html("");
                 d3.csv("evol_ca_dpt.csv", function(d) {
                     d.date = new Date(d.date);
@@ -118,7 +121,7 @@ d3.csv(
                 }).then(function (donnees_dpt) {
                     var totalWidth = Math.floor(d3.select("#graph_dep").style("width").replace("px", "")), 
                         totalHeight = 300,
-                        margin = {top: 30, right: 20, bottom: 20, left: 40},
+                        margin = {top: 30, right: 20, bottom: 20, left: 50},
                         width = totalWidth - margin.left - margin.right,
                         height = totalHeight - margin.top - margin.bottom,
                         date_min = d3.min(donnees_dpt, function(d) { return d.date; }),
@@ -192,3 +195,16 @@ d3.csv(
             .html(function (d) { return d.toLocaleString(); })
     }
 );
+
+
+d3.csv(
+    "prov_ca.csv",
+    function (d) {
+        d.ca = Math.round(d.ca);
+        return d;
+    }).then(
+    function (donnees) {
+        // Que mettre ici pour réaliser la demande sur l'onglet Provenances ?
+    }
+);
+

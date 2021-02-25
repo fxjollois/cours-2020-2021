@@ -6,26 +6,7 @@
         <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css">
 
         <script src="https://d3js.org/d3.v6.min.js"></script>
-        <style>
-            .pure-g {
-                margin: 10px;
-            }
-            .onglet {
-                display: none;
-            }
-            #onglet_global {
-                display: block;
-            }
-            #onglet_global p {
-                visibility: hidden;
-            }
-            #table_dep {
-                visibility: hidden;
-            }
-            #table_dep table {
-                margin: 0 auto;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>Dashboard de ma petite entreprise</h1>
@@ -95,14 +76,15 @@
         </div>
         
         <div class="pure-g onglet" id="onglet_prov">
-            Provenances
+            Provenances <!-- à supprimer lorsque vous réaliserez la demande sur les provenances -->
+            <!-- Quoi placer ici pour demande sur l'onglet Provenances ? -->
         </div>
         
         
         
         
         <!-- placement des scripts à la fin pour être sûr que la page soit chargée -->
-        <script src="script_gestion_onglets.js"></script>
+        <script src="script_onglets.js"></script>
         <script src="script_chargement.js"></script>
     </body>
 </html>
