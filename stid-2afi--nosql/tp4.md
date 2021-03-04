@@ -1,4 +1,4 @@
-# TP2 : Connexion R et MongoDB
+# TP4 : Connexion R et MongoDB
 
 Le but de ce TP est de voir l'utilisation des commandes MongoDB dans R.
 
