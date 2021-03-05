@@ -26,7 +26,7 @@
 - [TP3 : Récapitulatif](tp3)
 
 - [TP4 : Mongo dans R](tp4)
-- [TP5]
+- [TP5 : Dashboard dans R sur données dans MongoDB](tp5)
 
 ## Pour utilisation sur ordinateur personnel
 
@@ -50,5 +50,4 @@ A faire pour pouvoir utiliser l'outil sur votre ordinateur :
     - l'outil n'est pas très gourmand en espace normalement
 - Installer l'outil [Compass](https://www.mongodb.com/try/download/compass)
     - idem, assez petit
-- Pour accéder au shell, vous devez lancer un terminal de commande et taper `mongo` pour l'obtenir 
-
+- Pour accéder au shell, vous devez lancer un terminal de commande et taper `mongo` pour l'obtenir
