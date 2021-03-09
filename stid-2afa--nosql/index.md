@@ -24,20 +24,9 @@
 
 - Première séance
     - [Initiation au NoSQL](../stid-2afi--nosql/seance1-slides.html)
-    - [Introduciton à MongoDB](../stid-2afi--nosql/seance2-slides.html)
+    - [Introduction à MongoDB](../stid-2afi--nosql/seance2-slides.html)
 - [TP1](tp1)
 - [TP2](tp2)
 
 
-
-## Pour utilisation sur ordinateur personnel
-
-A faire pour pouvoir utiliser l'outil sur votre ordinateur :
-
-- Installer [MongoDB](https://www.mongodb.com/try/download/community) en version Community (gratuite)
-    - l'outil n'est pas très gourmand en espace normalement
-- Installer l'outil [Compass](https://www.mongodb.com/try/download/compass)
-    - idem, assez petit
-- Installer le [shell](https://www.mongodb.com/try/download/shell)
-    - c'est un zip à décompresser
-    - vous pouvez placer l'exécutable ou vous le souhaitez (dans le répertoire de ce cours par exemple)
+> Merci de suivre [ces instructions](infos) pour pouvoir utiliser sur votre ordinateur personnel.
