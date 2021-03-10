@@ -22,11 +22,9 @@
     - [Introduction à Tableau](du-dataviz/tableau)
     - [Introduction à d3.js](du-dataviz/d3js)    
 
-<!-- mlkhsfg
 
 ## Département Informatique, IUT Paris Descartes
 
 - LP IoT
     - [Analyse Statistique des Données](lp-iot--python-ds)
 
--->
