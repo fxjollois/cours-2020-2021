@@ -53,7 +53,7 @@ Nous allons ici créer une première base de données, que l'on nommera `test`, 
 
 Lorsque vous cliquez sur la collection, dans la base, vous voyez le détail de son contenu. Pour le moment, notre collection `restaurants` est vide. Il n'y a donc rien. Il est possible d'importer des documents directement.
 
-Nous allons importer maintenant les données dans notre collection ainsi créée. Vous devez avoir téléchargé le [fichier `restaurants.json`](restaurants.json) <restaurants.json> (11.9 Mo - cela peut prendre un peu de temps).
+Nous allons importer maintenant les données dans notre collection ainsi créée. Vous devez avoir téléchargé le [fichier `restaurants.json`](https://fxjollois.github.io/donnees/restaurants.json) (11.9 Mo - cela peut prendre un peu de temps).
 
 Une fois téléchargé, suivez la procédure suivante pour l'ajouter dans Mongo :
 
