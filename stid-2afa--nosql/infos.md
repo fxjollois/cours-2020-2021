@@ -46,7 +46,7 @@ Lorsque vous cliquez sur la collection, dans la base, vous voyez le détail de s
 
 ### Importation des données
 
-Nous allons importer maintenant les données dans notre collection ainsi créée. Vous devez avoir téléchargé le [fichier `restaurants.json`](../stid-2afi--nosql//restaurants.json) <restaurants.json> (11.9 Mo - cela peut prendre un peu de temps).
+Nous allons importer maintenant les données dans notre collection ainsi créée. Vous devez avoir téléchargé le [fichier `restaurants.json`](https://fxjollois.github.io/donnees/restaurants.json) <restaurants.json> (11.9 Mo - cela peut prendre un peu de temps).
 
 Une fois téléchargé, suivez la procédure suivante pour l'ajouter dans Mongo :
 
