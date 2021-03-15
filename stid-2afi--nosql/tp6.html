@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "UTF-8">
+        <link rel = "stylesheet" type = "text/css" href = "../remarkjs-v2.css">
+        <link rel = "icon" href = "../favicon-graduation-cap.ico" type = "image/x-icon">
+        <style>
+        .code_moi {
+          font-size: 18px;
+          display: inline-block;
+          float: left;
+          font-family: 'Ubuntu Mono';
+          margin: 1em 0px;
+          white-space: pre;
+          padding: 10px;
+        }
+        .code_gauche {
+          width: 70%;
+        }
+        .code_droite {
+          color: red;
+          width: 26%;
+        }
+        </style>
+    </head>
+    <body>
+        <textarea id="source">
+            <!--
+                Slideshow Markdown pas besoin car sourceUrl plus bas
+            -->
+        </textarea>
+        <script src="../remark.js"></script>
+        <script>
+            var slideshow = remark.create({
+                sourceUrl: 'tp6.md',
+                ratio: "16:9",
+                countIncrementalSlides: false
+            });
+        </script>
+    </body>
+</html>

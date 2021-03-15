@@ -28,6 +28,9 @@
 - [TP4 : Mongo dans R](tp4)
 - [TP5 : Dashboard dans R sur données dans MongoDB](tp5)
 
+- [TP6 : Explicatifs sur la correction](tp6.html)
+  - [Fichiers source](dashboard.zip)
+
 ## Pour utilisation sur ordinateur personnel
 
 A faire pour pouvoir utiliser l'outil sur votre ordinateur :
