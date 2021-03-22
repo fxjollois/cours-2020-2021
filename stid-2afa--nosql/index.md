@@ -27,7 +27,7 @@
     - [Introduction à MongoDB](../stid-2afi--nosql/seance2-slides.html)
 
 - [TP1 : Premiers pas](tp1)
-- [TP2](tp2)
+- [TP2 : Agrégats](tp2)
 
 
 > Merci de suivre [ces instructions](infos) pour pouvoir utiliser sur votre ordinateur personnel.
