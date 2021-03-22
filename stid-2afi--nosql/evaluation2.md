@@ -84,6 +84,20 @@ Enfin, chaque achat contient un ou plusieurs produits (ici 3), dont les informat
 - `price` : prix d'achat (à l'unité)
 - `quantity` : quantité achetée
 
+## Multiplication dans un agrégat
+
+Dans cette évaluation, vous devrez utiliser la multiplication dans un agrégat. Vous trouverez des informations sur <a href="https://docs.mongodb.com/manual/reference/operator/aggregation/multiply/" target="_blank">cette page</a>.
+
+Si dans un document dans une collection `rectangle`, vous avez un champs `largeur` et un champs `longueur`, vous pouvez obtenir la surface de cette façon (dans le shell de Mongo - à traduire en R):
+
+```js
+db.rectangle.aggregate([
+  { $addFields: {
+    $multiply: [ "$longueur", "$largeur" ]
+  }}
+])
+```
+
 ## Demande
 
 Merci de répondre aux questions en utilisant le formulaire ci-dessous :
