@@ -1,4 +1,4 @@
-# NoSQL 
+# NoSQL
 
 ## 2ème année en alternance
 
@@ -6,16 +6,16 @@
 7 séances de 3 heures
 
 1. Présentation de NoSQL et MongoDB
-2. Intro utilisation MongoDB 
+2. Intro utilisation MongoDB
     - créer une base, insérer 2/3 documents, importer des données json simple
     - Python : accès à MongoDB
     - Import données un peu sérieures + restriction et projection + distinct
 3. évaluation + ??
     - Evaluation sur TP noté
-4. Agrégat : 
+4. Agrégat :
     - $group, $sort, $limit
     - $project, $match
-5. Agrégat : 
+5. Agrégat :
     - $unwind
     - $lookup
 6. ??
@@ -25,7 +25,8 @@
 - Première séance
     - [Initiation au NoSQL](../stid-2afi--nosql/seance1-slides.html)
     - [Introduction à MongoDB](../stid-2afi--nosql/seance2-slides.html)
-- [TP1](tp1)
+
+- [TP1 : Premiers pas](tp1)
 - [TP2](tp2)
 
 

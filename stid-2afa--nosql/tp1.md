@@ -13,7 +13,7 @@ Une fois le shell Mongo lancé, il faut taper la commande `show dbs` pour affich
 
 ## Recherche d'information
 
-Mongo utilise le langage `JavaScript` pour la programmation dans le shell, avec un ensemble de méthodes permettant la gestion de la base et des données (ce qui nous concerne peu), mais aussi bien évidemment pour la recherche d'information. 
+Mongo utilise le langage `JavaScript` pour la programmation dans le shell, avec un ensemble de méthodes permettant la gestion de la base et des données (ce qui nous concerne peu), mais aussi bien évidemment pour la recherche d'information.
 
 ### Dénombrements
 
@@ -32,7 +32,7 @@ Nous verrons par la suite comment mettre plusieurs critères de recherche. Le fo
 
 #### Premier document vs tous les documents
 
-La première demande est souvent de recherche un ou plusieurs documents. Comme les documents n'ont pas de structure définies en amont, il existe une fonction (`findOne()`) permettant de renvoyer le premier document. Cela permet donc de visualiser un exemple de documents. 
+La première demande est souvent de recherche un ou plusieurs documents. Comme les documents n'ont pas de structure définies en amont, il existe une fonction (`findOne()`) permettant de renvoyer le premier document. Cela permet donc de visualiser un exemple de documents.
 
 ```js
 db.restaurants.findOne()
@@ -98,10 +98,10 @@ On peut aussi afficher que certains éléments des champs complexes (littéral o
 
 ```js
 db.restaurants.findOne(
-    {}, 
-    { 
-        _id: 0, name: 1, borough: 1, 
-        "address.street": 1, "grades.grade": 1 
+    {},
+    {
+        _id: 0, name: 1, borough: 1,
+        "address.street": 1, "grades.grade": 1
     }
 )
 ```
@@ -123,7 +123,7 @@ db.restaurants.findOne(
 )
 ```
 
-De même, si on souhaite tester si un champs a une valeur dans un ensemble donnée, il faut utiliser l'opérateur `$in`. Ici, nous cherchons les restaurants de 
+De même, si on souhaite tester si un champs a une valeur dans un ensemble donnée, il faut utiliser l'opérateur `$in`. Ici, nous cherchons les restaurants de
 
 ```js
 db.restaurants.findOne(
@@ -145,13 +145,13 @@ db.restaurants.distinct("borough")
 
 1. Donner les styles de cuisine présent dans la collection
 1. Donner tous les grades possibles dans la base
-1. Compter le nombre de restaurants proposant de la cuisine fraçaise ("French")
+1. Compter le nombre de restaurants proposant de la cuisine française ("French")
 1. Compter le nombre de restaurants situé sur la rue "Central Avenue"
 1. Compter le nombre de restaurants ayant eu une note supérieure à 50
 1. Lister tous les restaurants, en n'affichant que le nom, l'immeuble et la rue
 1. Lister tous les restaurants nommés "Burger King" (nom et quartier uniquement)
 1. Lister les restaurants situés sur les rues "Union Street" ou "Union Square"
-1. Lister les restaurants situés au-dessus de la lattitude 40.90
+1. Lister les restaurants situés au-dessus de la latitude 40.90
 1. Lister les restaurants ayant eu un score de 0 et un grade "A"
 
 ### Questions complémentaires
@@ -161,4 +161,3 @@ Nécessitent une recherche sur la toile pour compléter ce qu'on a déjà vu dan
 1. Lister les restaurants (nom et rue uniquement) situés sur une rue ayant le terme "Union" dans le nom
 1. Lister les restaurants ayant eu une visite le 1er février 2014
 1. Lister les restaurants situés entre les longitudes -74.2 et -74.1 et les lattitudes 40.1 et 40.2
-
