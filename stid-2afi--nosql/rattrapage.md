@@ -1,13 +1,24 @@
 # Rattrapage
 
-Nous travaillons sur des données AirBnB, présentes dans le format ci-dessous dans MongoDB.
+Nous travaillons sur des données AirBnB, présentes dans le format ci-dessous dans MongoDB. On se connecte à la base de la façon suivante dans R :
+
+```r
+library(mongolite)
+
+m = mongo(
+  collection = "airbnb",
+  db = "rattrapage",
+  url = "mongodb+srv://user:user@cluster0.ougec.mongodb.net/")
+```
+
+Voici le format des données :
 
 ```json
 {
     "_id": "10006546",
     "name": "Ribeira Charming Duplex",
-    "summary": "Fantastic duplex apartment with three bedrooms, located in the historic area of Porto, Ribeira (Cube) - UNESCO World Heritage Site. Centenary building fully rehabilitated, without losing their original character.",
-    "description": "Fantastic duplex apartment with three bedrooms, located in the historic area of Porto, Ribeira (Cube) - UNESCO World Heritage Site. Centenary building fully rehabilitated, without losing their original character. Privileged views of the Douro River and Ribeira square, our apartment offers the perfect conditions to discover the history and the charm of Porto. Apartment comfortable, charming, romantic and cozy in the heart of Ribeira. Within walking distance of all the most emblematic places of the city of Porto. The apartment is fully equipped to host 8 people, with cooker, oven, washing machine, dishwasher, microwave, coffee machine (Nespresso) and kettle. The apartment is located in a very typical area of the city that allows to cross with the most picturesque population of the city, welcoming, genuine and happy people that fills the streets with his outspoken speech and contagious with your sincere generosity, wrapped in a only parochial spirit. We are always available to help guests",
+    "summary": "....",
+    "description": "...",
     "property_type": "House",
     "room_type": "Entire home/apt",
     "bed_type": "Real Bed",
