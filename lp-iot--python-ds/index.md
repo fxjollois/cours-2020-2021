@@ -6,10 +6,9 @@ Ce cours est une introduction à l'utilisation de `python` pour la science des d
 
 - [Introduction à Python](seance1-intro)
 - [ACP et classification](seance2-ACP-classif)
+- [Application](seance3-application) 
 
 <!--
-- [ACP et Classification](seance2-ACP-classif.html) 
-- [Application](seance3-application.html) 
 
 A garder pour mettre en md :
 jupyter nbconvert --to markdown
