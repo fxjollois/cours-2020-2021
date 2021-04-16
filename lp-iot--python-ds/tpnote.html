@@ -14266,8 +14266,8 @@ a.anchor-link {
 <li>Pièce jointe : le fichier .ipynb à télécharger en cliquant sur File -&gt; Download as -&gt; Notebook (.ipynb)</li>
 </ul>
 <p><strong>Délai</strong> : A rendre avant la fin du TP le jour même</p>
-<h2 id="Donn&#233;es">Donn&#233;es<a class="anchor-link" href="#Donn&#233;es">&#182;</a></h2><p>Ce jeu de données restitue la production d'électricité par jour des différentes filières possibles au réseau Enedis, par plage de puissance injectée. Elles proviennent du site open data d'Enedis (<a href="https://data.enedis.fr/explore/dataset/prod/information/">plus d'informations, cliquez-ici</a>).</p>
-<p>Vous devez télécharger le <a href="FilieresProduction.csv">fichier de données</a> (au format <code>csv</code>), et qui s'importe comme ci-dessous.</p>
+<h2 id="Donn&#233;es">Donn&#233;es<a class="anchor-link" href="#Donn&#233;es">&#182;</a></h2><p>Ce jeu de données contient des informations sur des titres disponible sur Spotify, datant de 2020. Vous trouverez le détail des varaibles sur <a href="https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks">cette page</a>.</p>
+<p>Vous devez télécharger le <a href="spotify_songs_2020.csv">fichier de données</a> (au format <code>csv</code>), et qui s'importe comme ci-dessous.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14278,8 +14278,8 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span>
 
-<span class="n">prod</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;FilieresProduction.csv&quot;</span><span class="p">)</span>
-<span class="n">prod</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">songs</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;spotify_songs_2020.csv&quot;</span><span class="p">)</span>
+<span class="n">songs</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14318,71 +14318,131 @@ a.anchor-link {
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Date</th>
-      <th>P1 : ]0 - 3] kW</th>
-      <th>P2 : ]3 - 9] kW</th>
-      <th>P3 : ]9 - 100] kW</th>
-      <th>P4 : ]100 - 250] kW</th>
-      <th>P5 : ]250 - 1000] kW</th>
-      <th>P6 : ]1000 - 12000] kW</th>
-      <th>P7 : &gt; 12000 kW</th>
+      <th>acousticness</th>
+      <th>artists</th>
+      <th>danceability</th>
+      <th>duration_ms</th>
+      <th>energy</th>
+      <th>explicit</th>
+      <th>id</th>
+      <th>instrumentalness</th>
+      <th>key</th>
+      <th>liveness</th>
+      <th>loudness</th>
+      <th>mode</th>
+      <th>name</th>
+      <th>popularity</th>
+      <th>release_date</th>
+      <th>speechiness</th>
+      <th>tempo</th>
+      <th>valence</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>20180101</td>
-      <td>2.077390e+09</td>
-      <td>375724284.0</td>
-      <td>1.550615e+09</td>
-      <td>2.662994e+09</td>
-      <td>6.306990e+09</td>
-      <td>2.425381e+11</td>
-      <td>2.820488e+10</td>
+      <td>0.881</td>
+      <td>['Joni Mitchell']</td>
+      <td>0.644</td>
+      <td>313093</td>
+      <td>0.212</td>
+      <td>0</td>
+      <td>55qyghODi24yaDgKBI6lx0</td>
+      <td>0.000022</td>
+      <td>11</td>
+      <td>0.7980</td>
+      <td>-14.118</td>
+      <td>1</td>
+      <td>The Circle Game - Live at The 2nd Fret, Philad...</td>
+      <td>19</td>
+      <td>2020-10-30</td>
+      <td>0.0347</td>
+      <td>117.072</td>
+      <td>0.441</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>20180102</td>
-      <td>2.051658e+09</td>
-      <td>303267043.0</td>
-      <td>1.292679e+09</td>
-      <td>2.467395e+09</td>
-      <td>6.221920e+09</td>
-      <td>1.935935e+11</td>
-      <td>2.123369e+10</td>
+      <td>0.955</td>
+      <td>['Joni Mitchell']</td>
+      <td>0.627</td>
+      <td>295093</td>
+      <td>0.184</td>
+      <td>0</td>
+      <td>00xemFYjQNRpOlPhVaLAHa</td>
+      <td>0.000162</td>
+      <td>1</td>
+      <td>0.0986</td>
+      <td>-15.533</td>
+      <td>1</td>
+      <td>Urge For Going - Live at The 2nd Fret, Philade...</td>
+      <td>19</td>
+      <td>2020-10-30</td>
+      <td>0.0450</td>
+      <td>115.864</td>
+      <td>0.299</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>20180103</td>
-      <td>2.009292e+09</td>
-      <td>331861128.0</td>
-      <td>1.380157e+09</td>
-      <td>2.403259e+09</td>
-      <td>5.862378e+09</td>
-      <td>2.415548e+11</td>
-      <td>2.798439e+10</td>
+      <td>0.888</td>
+      <td>['Joni Mitchell']</td>
+      <td>0.581</td>
+      <td>183440</td>
+      <td>0.331</td>
+      <td>0</td>
+      <td>2lm5FQJRHvc3rUN5YHpEWj</td>
+      <td>0.000015</td>
+      <td>6</td>
+      <td>0.1470</td>
+      <td>-14.087</td>
+      <td>1</td>
+      <td>What's The Story Mr. Blue - Live at The 2nd Fr...</td>
+      <td>19</td>
+      <td>2020-10-30</td>
+      <td>0.2430</td>
+      <td>88.303</td>
+      <td>0.642</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>20180104</td>
-      <td>1.979063e+09</td>
-      <td>291015949.0</td>
-      <td>1.239656e+09</td>
-      <td>2.282586e+09</td>
-      <td>5.689795e+09</td>
-      <td>2.274995e+11</td>
-      <td>2.523585e+10</td>
+      <td>0.930</td>
+      <td>['Joni Mitchell']</td>
+      <td>0.442</td>
+      <td>147907</td>
+      <td>0.399</td>
+      <td>0</td>
+      <td>26g4FBGTB9YEj7q4HlblFf</td>
+      <td>0.000499</td>
+      <td>6</td>
+      <td>0.9120</td>
+      <td>-12.661</td>
+      <td>1</td>
+      <td>Brandy Eyes - Live at The 2nd Fret, Philadelph...</td>
+      <td>19</td>
+      <td>2020-10-30</td>
+      <td>0.0780</td>
+      <td>121.662</td>
+      <td>0.554</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>20180105</td>
-      <td>2.054262e+09</td>
-      <td>387378453.0</td>
-      <td>1.573815e+09</td>
-      <td>2.529303e+09</td>
-      <td>5.882376e+09</td>
-      <td>1.596449e+11</td>
-      <td>1.761923e+10</td>
+      <td>0.949</td>
+      <td>['Joni Mitchell']</td>
+      <td>0.570</td>
+      <td>64173</td>
+      <td>0.176</td>
+      <td>0</td>
+      <td>05sxkljafFBW2vEnVczQy1</td>
+      <td>0.000000</td>
+      <td>6</td>
+      <td>0.1470</td>
+      <td>-22.676</td>
+      <td>0</td>
+      <td>Intro To Urge For Going - Live at The 2nd Fret...</td>
+      <td>19</td>
+      <td>2020-10-30</td>
+      <td>0.2990</td>
+      <td>135.687</td>
+      <td>0.348</td>
     </tr>
   </tbody>
 </table>
@@ -14400,7 +14460,8 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="A-faire">A faire<a class="anchor-link" href="#A-faire">&#182;</a></h2><p>Sous la forme d'un notebook le plus propre et le mieux organisé possible, vous devez :</p>
 <ul>
-<li>Décrire les données (distribution des variables, évolution au cours du temps, données aberrantes)</li>
+<li>Décrire les données (distribution des variables, données aberrantes)</li>
+<li>Réperer les variables sur lesquelles se concentrer (il y en a plusieurs à supprimer)</li>
 <li>Réaliser une ACP sur les données<ul>
 <li>en justifiant s'il faut ou non standardiser les variables au préalable</li>
 </ul>
@@ -14411,12 +14472,26 @@ a.anchor-link {
 </li>
 <li>Décrire les axes en se basant sur le cercle des corrélations des variables</li>
 <li>Déterminer un nombre de classes adapté à ce jeu de données, à l'aide d'une CAH</li>
-<li>Trouver la partition des jours, avec le nombre de classes optimal obtenu ci-dessus</li>
+<li>Trouver la partition des chansons, avec le nombre de classes optimal obtenu ci-dessus</li>
 <li>Décrire les classes et les comparer entre elles</li>
 <li>Efectuer toutes les représentations qui vous semblent utiles pour décrire vos résultats et accompagner votre conclusion</li>
 </ul>
 
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div>
 </body>
 
