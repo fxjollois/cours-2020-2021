@@ -1,4 +1,4 @@
-# Evaluation 1
+# Evaluation A
 
 ## Données
 
@@ -60,14 +60,28 @@ Dans cette évaluation, nous allons travailler sur des données concernant des f
 Quelques points à noter :
 
 - Un même film peut donc avoir plusieurs genres (cf champs `genres`), contenus dans un tableau
-- Il en est de même pour les acteurs principaux (champs `cast`), les pays du film (champs `countries`), les directeurs (champs `directors`), et les scénaristes (champs `writers`)
+- Il en est de même pour les acteurs principaux (champs `cast`), les pays du film (champs `countries`), les langues (champs `languages`), les directeurs (champs `directors`), et les scénaristes (champs `writers`)
 - Le champs `imdb` reprend les éléments importants du site [IMDB](https://www.imdb.com/), sur lequel il est possible d'évaluer le film (sous-champs [`rating`](https://help.imdb.com/article/imdb/track-movies-tv/ratings-faq/G67Y87TFYYP6TWAV?ref_=helpsect_cons_2_4#ratings) - de 1 à 10)
 - Le champs `tomatoes` fait lui référence au site [Rotten Tomatoes](https://www.rottentomatoes.com/), proposant aussi une évaluation du film (sous-champs `critic` pour la critique et `viewer` pour le public, en particulier `rating` et [`meter`](https://www.rottentomatoes.com/about#whatisthetomatometer) en pourcentage - donc sur 100)
 
 ## Questions
 
-Vous devez déjà télécharger [le fichier `movies.json`](https://fxjollois.github.io/cours-2020-2021/stid-2afi--nosql/movies.json), et le mettre dans la collection `movies` de la base de données `test` (via *Compass* donc). Ensuite, une fois que vous aurez vérifié dans la console que vos données sont bien importées, vous pouvez répondre aux questions dans le formulaire ci-dessous.
+Vous devez déjà télécharger [le fichier `movies.json`](https://fxjollois.github.io/cours-2020-2021/stid-2afi--nosql/movies.json), et le mettre dans la collection `movies` de la base de données `test` (via *Compass* donc). Vous devez répondre par binôme, en m'envoyant vos réponses par mail.
 
 **ATTENTION A BIEN METTRE LE CODE MONGO ET PAS LE RESULTAT !!!**
 
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdUv-i2uQcYsTs34s_qe0MfELsj6EcARgZYAJfNkY28H-ud1g/viewform?embedded=true" width="640" height="2722" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
+1. Combien y-a-t'il de films en tout dans la base ?
+1. Combien y-a-t'il de films en Français ?
+1. Combien y-a-t'il de films franco-canadien ? (pays égal à France et Canada)
+1. Quels sont les genres (champs `genres`) existant dans la base ?
+1. Retrouver toutes les informations du film dont le titre (champs `title` donc) est "Jurassic Park", en les affichant proprement (avec retour à la ligne et indentation)
+1. Retrouver tous les films ayant le mot "jurassic" dans leur titre (avec ou sans majuscule), et lister leur titre et l'année de sortie uniquement
+1. Donner uniquement les titres des films ayant une note de 3 sur le site IMDB (champs `rating` dans le champs `imdb`)
+1. Donner les titres des films et leur note IMDB, pour ceux dont elle est inférieure ou égale à 3
+1. Donner la note du public Rotten Tomatoes moyenne (chanmps `rating` de `viewer` dans `tomatoes`), ainsi que la maximale et la minimale, pour tous les films
+1. Donner par année (champs `year` donc) le nombre de films dans la base (en veillant à faire attention à l'ordre du résultat)
+1. Donner par genre le nombre de films, en triant les genres par nombre de films décroissant
+1. Donner par genre la liste des types de films (champs `type`)
+1. Quels sont les 5 directeurs ayant dirigé le plus de films (nom du directeur, avec le nombre de films dirigés)
+1. Combien y-a-t'il de directeurs dans la base ?
+1. Donner par nombre d'acteurs, le nombre de films (attention, certains films n'ont pas d'acteurs, et donc pas le champs correspondant - On n'affichera pas le cas 0 acteurs)
