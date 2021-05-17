@@ -30,4 +30,6 @@
 - [TP2 : Agrégats](tp2)
 - [TP3 : Récapitulatif](tp3)
 
+- [TP4 : Intéraction MongoDB/R](tp4)
+
 > Merci de suivre [ces instructions](infos) pour pouvoir utiliser sur votre ordinateur personnel.
