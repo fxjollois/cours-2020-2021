@@ -290,7 +290,11 @@ df_grades
 
 ## A faire
 
-Dans R, utiliser la connexion vers Mongo pour récupérer les informations suivantes. Il faut faire en sorte que le maximum soit fait dans Mongo et pas dans R.
+Dans R, utiliser la connexion vers Mongo pour effectuer les demandes suivantes. Il faut faire en sorte que le maximum soit fait dans Mongo et pas dans R.
+
+### Sur données `restaurants`
+
+#### Au format `data.frame`
 
 1. Lister les informations du restaurant “Cafe Henri”
 1. Lister tous les restaurants de la chaîne “Bareburger” (rue, quartier)
@@ -307,5 +311,14 @@ Dans R, utiliser la connexion vers Mongo pour récupérer les informations suiva
 1. Quels sont les restaurants (nom, quartier et addresse) avec uniquement des grades “A” ?
 1. Compter le nombre d’évaluation par jour de la semaine
 
+#### Graphique
+
+1. Représenter graphiquement le nombre de restaurants par quartier
+1. Représenter graphiquement le nombre d'évaluation par jour de la semaine
+1. Représenter graphiquement le nombre de restaurants par type de cuisine
+    - barres horizontales
+    - triées dans l'ordre décroissant du nombre de restaurants
+1. Représenter, par quartier, la distribution des scores en fonction du grade obtenu
+1. Représenter les restaurants sur une carte (cf librairie [`ggmap`](https://github.com/dkahle/ggmap))
 
 
