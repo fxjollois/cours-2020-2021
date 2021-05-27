@@ -24,3 +24,34 @@ En repartant des données de production scientifique (au format `CSV` cette fois
     - lignes de références au niveau des moyennes de chaque variable
     - axes logarithmiques
     - nom de chaque pays indiqué lorsque la souris passe dessus
+
+
+<!--
+Questions pour QCM :
+
+d3.select("#aaaa").html("bla bla bla")
+Où sera placé le texte "bla bla bla" ?
+
+d3.select("body").style("color", "red")
+Que fait ce code ?
+
+Il n'est pas possible d'associer un tableau à une sélection plus grande ?
+
+d3.select("#aaaa")
+  .html("")
+  .selectAll("p")
+  .data(["pomme", "cerise", "fraise"])
+  .enter()
+  .append("p")
+  .html(d => "Le fruit est une " + d);
+Que fait ce code ?
+
+Il est possible de placer du code suite à l'importation de données sans se
+soucier du temps mis pour les télécharger
+
+d3.rollups(
+  [{a: 0, b: 5}, {a: 1, b: 7}, {a: 1, b: 12}, {a: 0, b: 4}],
+  v => d3.mean(v, e => e.b)
+  d => d.a
+)
+-->
